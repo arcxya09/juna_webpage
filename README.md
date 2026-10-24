@@ -14,10 +14,11 @@ npm run build      # 生成静态文件到 dist/
 
 ## 修改内容
 
-- 所有文案：`src/i18n/content.ts`（`zh` 与 `en` 两份）。标有 `verify: true` 的条目来自公开资料，需要核对。
-- 配色与字体：`src/styles/global.css` 顶部的变量。
-- 各分段：`src/components/`。
-- 图片：`public/images/`。目前是 `scripts/generate-placeholders.mjs` 生成的占位图，用同名文件替换为正式照片即可。
+- 所有文案：`src/i18n/content.ts`（`zh` 与 `en` 两份）。内容依据第四届胡杨论坛 JUNA 报告与已发表论文整理。
+- 初步结果：`content.ts` 顶部的 `SHOW_PRELIMINARY`。12C(α,γ)16O 第二轮数据与 Super-JUNA 指标仍属初步或在评审中，默认不显示；合作组同意公开后改为 `true`。
+- 图片：照片在 `src/assets/photos/`，示意图在 `src/assets/figures/`。构建时自动压缩为多尺寸 WebP；替换同名文件即可更新。
+- 配色与字体：`src/styles/global.css` 顶部的变量。字体随站点打包（Inter、IBM Plex Mono），中文使用系统字体，不依赖 Google Fonts。
+- 各分段：`src/components/`，页面顺序见 `src/components/Page.astro`。
 
 ## 部署
 

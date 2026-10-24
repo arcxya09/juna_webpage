@@ -1,0 +1,12 @@
+---
+// Inline text with Unicode super/subscripts rendered as <sup>/<sub>.
+import { rich } from '../lib/rich';
+
+interface Props {
+  s: string;
+}
+
+const runs = rich(Astro.props.s);
+---
+
+{runs.map((r) => (r.kind === 'sup' ? <sup>{r.text}</sup> : r.kind === 'sub' ? <sub>{r.text}</sub> : r.text))}

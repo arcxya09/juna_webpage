@@ -1,0 +1,103 @@
+---
+// A photo or a diagram "plate" with an optional numbered caption.
+import { Image } from 'astro:assets';
+import { img, widths } from '../lib/img';
+import T from './T.astro';
+
+interface Props {
+  name: string;
+  alt: string;
+  caption?: string;
+  num?: string;
+  plate?: boolean;
+  sizes?: string;
+  ratio?: string;
+  pos?: string;
+  reveal?: 'clip' | 'up' | false;
+  d?: number;
+  eager?: boolean;
+  class?: string;
+}
+
+const {
+  name,
+  alt,
+  caption,
+  num,
+  plate = false,
+  sizes = '(min-width: 1320px) 640px, (min-width: 960px) 50vw, 100vw',
+  ratio,
+  pos,
+  reveal = 'clip',
+  d = 0,
+  eager = false,
+  class: cls,
+} = Astro.props;
+const meta = img(name);
+const delay = d ? `--d:${d}s` : undefined;
+---
+
+<figure class:list={['fig', plate && 'fig--plate', ratio && 'fig--crop', cls]} data-reveal={reveal === 'up' ? '' : undefined} style={reveal === 'up' ? delay : undefined}>
+  <div class="fig__media" data-reveal={reveal === 'clip' ? 'clip' : undefined} style={[ratio && `aspect-ratio:${ratio}`, reveal === 'clip' && delay].filter(Boolean).join(';') || undefined}>
+    <Image
+      src={meta}
+      alt={alt}
+      widths={widths(meta)}
+      sizes={sizes}
+      loading={eager ? 'eager' : 'lazy'}
+      style={pos ? `object-position:${pos}` : undefined}
+    />
+  </div>
+  {
+    caption && (
+      <figcaption>
+        {num && <span class="fig__num">{num}</span>}
+        <span>
+          <T s={caption} />
+        </span>
+      </figcaption>
+    )
+  }
+</figure>
+
+<style>
+  .fig {
+    margin: 0;
+  }
+  .fig__media {
+    position: relative;
+    overflow: hidden;
+    background: var(--ink-800);
+  }
+  .fig--crop img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .fig--plate .fig__media {
+    background: var(--paper);
+    padding: clamp(10px, 1.6vw, 22px);
+  }
+  .fig--plate.fig--crop img {
+    object-fit: contain;
+  }
+  .fig img {
+    width: 100%;
+  }
+  figcaption {
+    display: flex;
+    gap: 14px;
+    margin-top: 14px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-faint);
+  }
+  .fig__num {
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--copper);
+    padding-top: 2px;
+  }
+</style>

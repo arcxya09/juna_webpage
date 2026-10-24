@@ -1,0 +1,175 @@
+---
+import type { Content } from '../i18n/content';
+import Reaction from './Reaction.astro';
+import T from './T.astro';
+
+interface Props {
+  t: Content;
+}
+
+const { needs } = Astro.props.t;
+const pct = (s: string) => parseFloat(s);
+---
+
+<section class="section section--deep">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker" data-reveal>{needs.kicker}</p>
+      <h2 class="h2" data-reveal style="--d:.08s">{needs.title}</h2>
+    </div>
+
+    <div class="needs" role="table" aria-label={needs.title}>
+      <div class="needs__row needs__row--head" role="row">
+        <span role="columnheader">{needs.head[1]} · {needs.head[0]}</span>
+        <span role="columnheader" class="needs__scale" aria-hidden="true"><i>0</i><i>50%</i><i>100%</i></span>
+        <span role="columnheader">{needs.head[2]}</span>
+        <span role="columnheader">{needs.head[3]}</span>
+      </div>
+      {
+        needs.rows.map((r, i) => (
+          <div class="needs__row" role="row" data-reveal style={`--d:${i * 0.08}s`}>
+            <span role="cell" class="needs__what">
+              <Reaction text={r.reaction} class="needs__reaction" />
+              <span class="needs__problem"><T s={r.problem} /></span>
+            </span>
+            <span role="cell" class="needs__bars" aria-hidden="true">
+              <i class="bar bar--now" style={`--w:${pct(r.now)}%`} />
+              <i class="bar bar--need" style={`--w:${pct(r.need)}%`} />
+            </span>
+            <span role="cell" class="needs__val">
+              <em class="needs__tag">{needs.head[2]}</em>
+              <b class="needs__now">{r.now}</b>
+              <small>{r.nowNote}</small>
+            </span>
+            <span role="cell" class="needs__val">
+              <em class="needs__tag">{needs.head[3]}</em>
+              <b class="needs__need">{r.need}</b>
+              <small>{r.needNote}</small>
+            </span>
+          </div>
+        ))
+      }
+    </div>
+    <p class="src" data-reveal>{needs.source}</p>
+  </div>
+</section>
+
+<style>
+  .needs {
+    border-top: 1px solid var(--line-strong);
+  }
+  .needs__row {
+    display: grid;
+    grid-template-columns: minmax(0, 3.2fr) minmax(0, 4fr) minmax(0, 1.6fr) minmax(0, 1.6fr);
+    gap: 32px;
+    align-items: center;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .needs__row--head {
+    padding: 14px 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .needs__scale {
+    display: flex;
+    justify-content: space-between;
+  }
+  .needs__scale i {
+    font-style: normal;
+  }
+  .needs__what {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  :global(.needs__reaction) {
+    font-size: clamp(22px, 2.2vw, 28px);
+    font-weight: 300;
+  }
+  .needs__problem {
+    font-size: 14px;
+    color: var(--text-faint);
+  }
+  .needs__bars {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 6px 0;
+    background: linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 25% 100%;
+  }
+  .bar {
+    display: block;
+    height: 6px;
+    width: var(--w);
+    transform-origin: 0 50%;
+    transition: transform 1.2s var(--ease) calc(var(--d, 0s) + 0.2s);
+  }
+  .bar--now {
+    background: rgba(127, 156, 199, 0.42);
+  }
+  .bar--need {
+    background: var(--copper);
+  }
+  :global(.js) .needs__row .bar {
+    transform: scaleX(0);
+  }
+  :global(.js) .needs__row.is-in .bar {
+    transform: none;
+  }
+  .needs__val {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .needs__val b {
+    font-size: 28px;
+    font-weight: 250;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    font-variant-numeric: tabular-nums;
+  }
+  .needs__now {
+    color: var(--text-dim);
+  }
+  .needs__need {
+    color: var(--copper-light);
+  }
+  .needs__tag {
+    display: none;
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .needs__val small {
+    font-size: 12.5px;
+    color: var(--text-faint);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .needs__row .bar {
+      transform: none;
+    }
+  }
+  @media (max-width: 860px) {
+    .needs__row {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 14px 24px;
+    }
+    .needs__row--head {
+      display: none;
+    }
+    .needs__what,
+    .needs__bars {
+      grid-column: 1 / -1;
+    }
+    .needs__tag {
+      display: block;
+    }
+  }
+</style>

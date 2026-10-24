@@ -1,0 +1,106 @@
+---
+// Full-bleed photographic divider that opens each part of the page.
+import { Image } from 'astro:assets';
+import { img, widths } from '../lib/img';
+import T from './T.astro';
+
+interface Props {
+  id?: string;
+  chapter: { num: string; label: string; title: string; body: string };
+  image: string;
+  pos?: string;
+}
+
+const { id, chapter, image, pos = '50% 50%' } = Astro.props;
+const photo = img(image);
+---
+
+<section class="chapter" id={id}>
+  <div class="chapter__media" data-parallax="0.16">
+    <Image src={photo} alt="" widths={widths(photo)} sizes="100vw" loading="lazy" style={`object-position:${pos}`} />
+  </div>
+  <div class="chapter__shade" aria-hidden="true"></div>
+  <div class="wrap chapter__inner">
+    <span class="chapter__num" data-reveal="fade" aria-hidden="true">{chapter.num}</span>
+    <div class="chapter__text">
+      <p class="kicker" data-reveal>{chapter.label}</p>
+      <h2 class="chapter__title" data-reveal style="--d:.1s"><T s={chapter.title} /></h2>
+      <p class="lead chapter__body" data-reveal style="--d:.2s"><T s={chapter.body} /></p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .chapter {
+    position: relative;
+    min-height: min(92svh, 920px);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: var(--ink-950);
+    isolation: isolate;
+  }
+  .chapter__media {
+    position: absolute;
+    inset: -12% 0;
+    will-change: transform;
+  }
+  .chapter__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.75);
+  }
+  .chapter__shade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(0deg, var(--ink-900) 0%, rgba(8, 16, 28, 0.78) 30%, rgba(8, 16, 28, 0.25) 70%, rgba(8, 16, 28, 0.55) 100%),
+      linear-gradient(90deg, rgba(4, 8, 14, 0.55), rgba(4, 8, 14, 0) 70%);
+  }
+  .chapter__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: end;
+    gap: clamp(24px, 4vw, 72px);
+    padding-top: 160px;
+    padding-bottom: clamp(64px, 9vw, 128px);
+  }
+  .chapter__num {
+    font-size: clamp(110px, 19vw, 300px);
+    line-height: 0.78;
+    font-weight: 100;
+    letter-spacing: -0.06em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(227, 171, 128, 0.75);
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+  }
+  .chapter__title {
+    font-size: clamp(34px, 5.2vw, 72px);
+    line-height: 1.08;
+    font-weight: 300;
+    letter-spacing: -0.025em;
+    margin: 0 0 24px;
+    text-wrap: balance;
+  }
+  :global(html[lang='zh-CN']) .chapter__title {
+    letter-spacing: 0.04em;
+    line-height: 1.25;
+  }
+  .chapter__body {
+    color: rgba(236, 238, 242, 0.78);
+    max-width: 34em;
+  }
+  @media (max-width: 720px) {
+    .chapter {
+      min-height: 80svh;
+    }
+    .chapter__inner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+    }
+  }
+</style>

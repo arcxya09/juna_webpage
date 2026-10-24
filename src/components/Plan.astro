@@ -1,0 +1,240 @@
+---
+import { SHOW_PRELIMINARY, type Content } from '../i18n/content';
+import Reaction from './Reaction.astro';
+import T from './T.astro';
+
+interface Props {
+  t: Content;
+}
+
+const { plan, superjuna: sj } = Astro.props.t;
+---
+
+<section class="section plan">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker" data-reveal>{plan.kicker}</p>
+      <h2 class="h2" data-reveal style="--d:.08s">{plan.title}</h2>
+    </div>
+    <div class="plan__grid">
+      {
+        plan.groups.map((g, i) => (
+          <div class="plan__group" data-reveal style={`--d:${i * 0.1}s`}>
+            <h3>
+              <span>{String.fromCharCode(65 + i)}</span>
+              {g.k}
+            </h3>
+            <ul>
+              {g.items.map(([r, d]) => (
+                <li>
+                  <Reaction text={r} class="plan__reaction" />
+                  <span>
+                    <T s={d} />
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section section--deep superjuna">
+  <div class="sj__glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="head head--split">
+      <div>
+        <p class="kicker" data-reveal>{sj.kicker}</p>
+        <h2 class="h2" data-reveal style="--d:.08s">{sj.title}</h2>
+      </div>
+      <p class="lead" data-reveal style="--d:.16s">{sj.body}</p>
+    </div>
+    <ol class="sj__challenges">
+      {
+        sj.challenges.map((c, i) => (
+          <li data-reveal style={`--d:${i * 0.1}s`}>
+            <span class="sj__i">0{i + 1}</span>
+            <h3>{c.k}</h3>
+            <p>{c.v}</p>
+          </li>
+        ))
+      }
+    </ol>
+    {
+      SHOW_PRELIMINARY && (
+        <>
+          <dl class="sj__specs">
+            {sj.specs.map((s, i) => (
+              <div data-reveal style={`--d:${i * 0.1}s`}>
+                <dd>
+                  <span class="sj__num">{s.value}</span>
+                  <span class="sj__unit">{s.unit}</span>
+                </dd>
+                <dt>
+                  <T s={s.label} />
+                </dt>
+              </div>
+            ))}
+          </dl>
+          <p class="src">{sj.specsNote}</p>
+        </>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .plan__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 3fr);
+    gap: 20px;
+  }
+  .plan__group {
+    padding: 32px 36px 20px;
+    border: 1px solid var(--line);
+    background: var(--ink-850);
+  }
+  .plan__group h3 {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 19px;
+    font-weight: 400;
+    margin: 0 0 12px;
+  }
+  .plan__group h3 span {
+    display: inline-grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--copper);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--copper-light);
+  }
+  .plan__group ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .plan__group li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    gap: 16px;
+    align-items: baseline;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+  :global(.plan__reaction) {
+    font-size: 24px;
+    font-weight: 250;
+    color: var(--copper-light);
+  }
+  .plan__group li > span:last-child {
+    font-size: 15px;
+    color: var(--text-dim);
+  }
+
+  .superjuna {
+    overflow: hidden;
+  }
+  .sj__glow {
+    position: absolute;
+    right: -20%;
+    top: -30%;
+    width: 80%;
+    aspect-ratio: 1;
+    background: radial-gradient(closest-side, rgba(194, 124, 78, 0.12), transparent);
+    pointer-events: none;
+  }
+  .sj__challenges {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--line-strong);
+  }
+  .sj__challenges li {
+    padding: 28px 28px 8px 0;
+  }
+  .sj__challenges li + li {
+    padding-left: 28px;
+    border-left: 1px solid var(--line);
+  }
+  .sj__i {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--copper);
+    letter-spacing: 0.14em;
+  }
+  .sj__challenges h3 {
+    font-size: clamp(22px, 2.2vw, 28px);
+    font-weight: 300;
+    margin: 16px 0 10px;
+  }
+  .sj__challenges p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 15.5px;
+  }
+  .sj__specs {
+    margin: 56px 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .sj__specs div {
+    padding: 24px 28px;
+    border: 1px solid var(--line);
+  }
+  .sj__specs dd {
+    margin: 0 0 6px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .sj__num {
+    font-size: 56px;
+    font-weight: 150;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .sj__unit {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--copper-light);
+  }
+  .sj__specs dt {
+    font-size: 13.5px;
+    color: var(--text-faint);
+  }
+  @media (max-width: 960px) {
+    .plan__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 760px) {
+    .sj__challenges,
+    .sj__specs {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .sj__challenges li,
+    .sj__challenges li + li {
+      padding: 24px 0 16px;
+      border-left: 0;
+    }
+    .sj__challenges li + li {
+      border-top: 1px solid var(--line);
+    }
+    .plan__group {
+      padding: 26px 20px 12px;
+    }
+    .plan__group li {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 4px;
+    }
+  }
+</style>
