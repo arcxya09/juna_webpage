@@ -1,0 +1,106 @@
+---
+import type { Content } from '../i18n/content';
+
+interface Props {
+  t: Content;
+}
+
+const { t } = Astro.props;
+---
+
+<section class="section results" id="results">
+  <div class="wrap">
+    <p class="kicker" data-reveal>{t.results.kicker}</p>
+    <h2 class="h2" data-reveal style="--d:.1s">{t.results.title}</h2>
+    <p class="lead" data-reveal style="--d:.2s">{t.results.intro}</p>
+    <div class="results__list">
+      {
+        t.results.items.map((r, i) => (
+          <article class="result" data-reveal style={`--d:${i * 0.06}s`}>
+            <div class="result__reaction">{r.reaction}</div>
+            <div class="result__body">
+              <h3>{r.title}</h3>
+              <p>{r.desc}</p>
+            </div>
+            <div class="result__venue">
+              {r.href ? (
+                <a href={r.href} target="_blank" rel="noopener">
+                  {r.venue} ↗
+                </a>
+              ) : (
+                <span>{r.venue}</span>
+              )}
+              {r.verify && <span class="verify">{t.results.verifyNote}</span>}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .results__list {
+    margin-top: clamp(48px, 6vw, 80px);
+    border-top: 1px solid var(--line-strong);
+  }
+  .result {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 3fr);
+    gap: 32px;
+    padding: 36px 0;
+    border-bottom: 1px solid var(--line);
+    transition: background 0.3s;
+  }
+  .result:hover {
+    background: linear-gradient(90deg, rgba(194, 124, 78, 0.06), transparent 70%);
+  }
+  .result__reaction {
+    font-family: var(--font-mono);
+    font-size: clamp(20px, 2vw, 26px);
+    color: var(--copper-light);
+    white-space: nowrap;
+  }
+  .result h3 {
+    margin: 0 0 10px;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.35;
+  }
+  .result p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 15px;
+  }
+  .result__venue {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-dim);
+    text-align: right;
+  }
+  .result__venue a {
+    border-bottom: 1px solid var(--line-strong);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .result__venue a:hover {
+    color: var(--copper-light);
+    border-color: var(--copper);
+  }
+  .result__venue .verify {
+    display: block;
+    width: max-content;
+    margin: 10px 0 0 auto;
+  }
+  @media (max-width: 860px) {
+    .result {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .result__venue {
+      text-align: left;
+    }
+    .result__venue .verify {
+      margin-left: 0;
+    }
+  }
+</style>

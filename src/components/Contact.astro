@@ -1,0 +1,64 @@
+---
+import type { Content } from '../i18n/content';
+
+interface Props {
+  t: Content;
+}
+
+const { t } = Astro.props;
+---
+
+<section class="section contact" id="contact">
+  <div class="wrap">
+    <p class="kicker" data-reveal>{t.contact.kicker}</p>
+    <h2 class="h2 contact__title" data-reveal style="--d:.1s">{t.contact.title}</h2>
+    <p class="lead" data-reveal style="--d:.2s">{t.contact.body}</p>
+    <dl class="contact__rows">
+      {
+        t.contact.rows.map((r, i) => (
+          <div data-reveal style={`--d:${0.2 + i * 0.08}s`}>
+            <dt>{r.k}</dt>
+            <dd>{r.v}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .contact {
+    background:
+      radial-gradient(ellipse 60% 80% at 85% 100%, rgba(194, 124, 78, 0.14), transparent 70%),
+      var(--ink-900);
+  }
+  .contact__title {
+    font-size: clamp(40px, 6vw, 84px);
+  }
+  .contact__rows {
+    margin: 56px 0 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--line-strong);
+  }
+  .contact__rows div {
+    padding: 24px 24px 0 0;
+  }
+  .contact__rows dt {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--copper-light);
+  }
+  .contact__rows dd {
+    margin: 10px 0 0;
+    font-size: 18px;
+    font-weight: 300;
+  }
+  @media (max-width: 720px) {
+    .contact__rows {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

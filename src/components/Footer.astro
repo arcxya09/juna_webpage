@@ -1,0 +1,54 @@
+---
+import type { Content } from '../i18n/content';
+
+interface Props {
+  t: Content;
+}
+
+const { t } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <div class="footer__brand">
+      <strong>JUNA</strong>
+      <span>{t.footer.line}</span>
+    </div>
+    <p class="footer__note">{t.footer.note}</p>
+    <p class="footer__copy">© {year} JUNA</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--line);
+    padding: 40px 0;
+    background: var(--ink-950);
+    font-size: 13px;
+    color: var(--text-faint);
+  }
+  .footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 40px;
+  }
+  .footer__brand {
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+  }
+  .footer__brand strong {
+    color: var(--text);
+    letter-spacing: 0.32em;
+    font-weight: 600;
+  }
+  .footer__note {
+    margin: 0;
+  }
+  .footer__copy {
+    margin: 0 0 0 auto;
+    font-family: var(--font-mono);
+  }
+</style>

@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from './Nav.astro';
+import Hero from './Hero.astro';
+import Mission from './Mission.astro';
+import Lab from './Lab.astro';
+import Apparatus from './Apparatus.astro';
+import Numbers from './Numbers.astro';
+import Results from './Results.astro';
+import News from './News.astro';
+import Team from './Team.astro';
+import Contact from './Contact.astro';
+import Footer from './Footer.astro';
+import { content, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = content[lang];
+---
+
+<Base lang={lang} title={t.meta.title} description={t.meta.description}>
+  <Nav t={t} lang={lang} />
+  <main>
+    <Hero t={t} />
+    <Mission t={t} />
+    <Lab t={t} />
+    <Apparatus t={t} />
+    <Numbers t={t} />
+    <Results t={t} />
+    <News t={t} />
+    <Team t={t} />
+    <Contact t={t} />
+  </main>
+  <Footer t={t} />
+  <script>
+    import '../scripts/particles';
+    import '../scripts/motion';
+  </script>
+</Base>
