@@ -1,4 +1,5 @@
 ---
+import Reaction from './Reaction.astro';
 import type { Content } from '../i18n/content';
 
 interface Props {
@@ -17,7 +18,7 @@ const { t } = Astro.props;
       {
         t.results.items.map((r, i) => (
           <article class="result" data-reveal style={`--d:${i * 0.06}s`}>
-            <div class="result__reaction">{r.reaction}</div>
+            <div class="result__reaction"><Reaction text={r.reaction} /></div>
             <div class="result__body">
               <h3>{r.title}</h3>
               <p>{r.desc}</p>
@@ -56,8 +57,8 @@ const { t } = Astro.props;
     background: linear-gradient(90deg, rgba(194, 124, 78, 0.06), transparent 70%);
   }
   .result__reaction {
-    font-family: var(--font-mono);
-    font-size: clamp(20px, 2vw, 26px);
+    font-size: clamp(24px, 2.4vw, 32px);
+    line-height: 1.2;
     color: var(--copper-light);
     white-space: nowrap;
   }
