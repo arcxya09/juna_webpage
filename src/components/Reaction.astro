@@ -1,0 +1,32 @@
+---
+// Renders a reaction such as "¹⁹F(p,γ)²⁰Ne" with real <sup> mass numbers,
+// so they sit level and keep their size whatever font is in use.
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+const SUP = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+const parts = text.split(new RegExp(`([${SUP}]+)`)).filter(Boolean);
+const toDigits = (s: string) => [...s].map((c) => SUP.indexOf(c)).join('');
+---
+
+<span class="reaction">
+  {parts.map((p) => (SUP.includes(p[0]) ? <sup>{toDigits(p)}</sup> : <span>{p}</span>))}
+</span>
+
+<style>
+  .reaction {
+    font-family: var(--font-sans);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  sup {
+    font-size: 0.58em;
+    line-height: 0;
+    vertical-align: 0.82em;
+    margin-right: 0.04em;
+    font-variant-numeric: lining-nums;
+  }
+</style>
