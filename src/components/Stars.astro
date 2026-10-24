@@ -1,0 +1,179 @@
+---
+import type { Content } from '../i18n/content';
+import Reaction from './Reaction.astro';
+
+interface Props {
+  t: Content;
+}
+
+const { stars } = Astro.props.t;
+---
+
+<section class="section">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker" data-reveal>{stars.kicker}</p>
+      <h2 class="h2" data-reveal style="--d:.08s">{stars.title}</h2>
+    </div>
+
+    <ol class="pillars">
+      {
+        stars.pillars.map((p, i) => (
+          <li data-reveal style={`--d:${i * 0.08}s`}>
+            <span class="pillars__i">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{p.k}</h3>
+            <p>{p.v}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="classes">
+      <p class="label classes__title" data-reveal>{stars.classesTitle}</p>
+      <div class="classes__grid">
+        {
+          stars.classes.map((c, i) => (
+            <article class="cls" data-reveal style={`--d:${i * 0.1}s`}>
+              <header>
+                <h3>{c.k}</h3>
+                <p>{c.note}</p>
+              </header>
+              <ul>
+                {c.reactions.map((r) => (
+                  <li>
+                    <Reaction text={r} />
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pillars {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid var(--line-strong);
+  }
+  .pillars li {
+    padding: 28px 28px 8px 0;
+  }
+  .pillars li + li {
+    padding-left: 28px;
+    border-left: 1px solid var(--line);
+  }
+  .pillars__i {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--copper);
+  }
+  .pillars h3 {
+    font-size: 24px;
+    font-weight: 400;
+    margin: 18px 0 12px;
+  }
+  .pillars p {
+    color: var(--text-dim);
+    font-size: 15.5px;
+    margin: 0;
+  }
+
+  .classes {
+    margin-top: clamp(72px, 9vw, 120px);
+  }
+  .classes__title {
+    margin: 0 0 20px;
+  }
+  .classes__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .cls {
+    position: relative;
+    padding: 32px 32px 28px;
+    background: linear-gradient(160deg, var(--ink-800), var(--ink-850));
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .cls::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 48px;
+    height: 2px;
+    background: var(--copper);
+  }
+  .cls header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .cls h3 {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0;
+  }
+  .cls header p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-faint);
+    text-align: right;
+  }
+  .cls ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .cls li {
+    padding: 18px 0 0;
+    font-size: clamp(24px, 2.4vw, 32px);
+    font-weight: 250;
+    color: var(--copper-light);
+  }
+
+  @media (max-width: 960px) {
+    .pillars {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .pillars li + li:nth-child(3) {
+      padding-left: 0;
+      border-left: 0;
+    }
+    .pillars li:nth-child(n + 3) {
+      border-top: 1px solid var(--line);
+      margin-top: 20px;
+    }
+    .classes__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 560px) {
+    .pillars {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .pillars li,
+    .pillars li + li {
+      padding: 22px 0 6px;
+      border-left: 0;
+      margin-top: 0;
+    }
+    .pillars li + li {
+      border-top: 1px solid var(--line);
+    }
+    .cls {
+      padding: 26px 22px 22px;
+    }
+  }
+</style>

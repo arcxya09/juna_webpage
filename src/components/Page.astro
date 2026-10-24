@@ -2,14 +2,22 @@
 import Base from '../layouts/Base.astro';
 import Nav from './Nav.astro';
 import Hero from './Hero.astro';
-import Mission from './Mission.astro';
-import Lab from './Lab.astro';
-import Apparatus from './Apparatus.astro';
-import Numbers from './Numbers.astro';
+import Chapter from './Chapter.astro';
+import Stars from './Stars.astro';
+import Gamow from './Gamow.astro';
+import Needs from './Needs.astro';
+import Keys from './Keys.astro';
+import Labs from './Labs.astro';
+import Cjpl from './Cjpl.astro';
+import Accelerator from './Accelerator.astro';
+import Instruments from './Instruments.astro';
+import History from './History.astro';
 import Results from './Results.astro';
-import News from './News.astro';
+import Impact from './Impact.astro';
+import Upgrade from './Upgrade.astro';
+import Grail from './Grail.astro';
+import Plan from './Plan.astro';
 import Team from './Team.astro';
-import Contact from './Contact.astro';
 import Footer from './Footer.astro';
 import { content, type Lang } from '../i18n/content';
 
@@ -19,22 +27,40 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = content[lang];
+const ch = t.chapters;
 ---
 
 <Base lang={lang} title={t.meta.title} description={t.meta.description}>
+  <div class="progress" data-progress aria-hidden="true"></div>
   <Nav t={t} lang={lang} />
   <main>
     <Hero t={t} />
-    <Mission t={t} />
-    <Lab t={t} />
-    <Apparatus t={t} />
-    <Numbers t={t} />
+
+    <Chapter id="science" chapter={ch.science} image="cosmos.jpg" />
+    <Stars t={t} />
+    <Gamow t={t} />
+    <Needs t={t} />
+
+    <Chapter id="underground" chapter={ch.underground} image="jinping-dam.jpg" pos="50% 40%" />
+    <Keys t={t} />
+    <Labs t={t} lang={lang} />
+    <Cjpl t={t} />
+    <Accelerator t={t} />
+    <Instruments t={t} />
+    <History t={t} />
+
+    <Chapter id="results" chapter={ch.results} image="hall-2021.jpg" pos="50% 60%" />
     <Results t={t} />
-    <News t={t} />
+    <Impact t={t} />
+
+    <Chapter id="future" chapter={ch.future} image="a1-hall-render.jpg" />
+    <Upgrade t={t} />
+    <Grail t={t} />
+    <Plan t={t} />
+
     <Team t={t} />
-    <Contact t={t} />
   </main>
-  <Footer t={t} />
+  <Footer t={t} lang={lang} />
   <script>
     import '../scripts/particles';
     import '../scripts/motion';

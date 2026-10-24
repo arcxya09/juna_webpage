@@ -1,0 +1,23 @@
+---
+import type { Content } from '../i18n/content';
+import Fig from './Fig.astro';
+
+interface Props {
+  t: Content;
+}
+
+const { upgrade } = Astro.props.t;
+---
+
+<section class="section upgrade">
+  <div class="wrap">
+    <div class="head head--split">
+      <div>
+        <p class="kicker" data-reveal>{upgrade.kicker}</p>
+        <h2 class="h2" data-reveal style="--d:.08s">{upgrade.title}</h2>
+      </div>
+      <p class="lead" data-reveal style="--d:.16s">{upgrade.body}</p>
+    </div>
+    <Fig name="a1-layout.jpg" alt={upgrade.fig} caption={upgrade.fig} num="FIG. 4.1" plate sizes="(min-width: 1320px) 1200px, 100vw" />
+  </div>
+</section>

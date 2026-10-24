@@ -1,0 +1,127 @@
+---
+import { Image } from 'astro:assets';
+import type { Content } from '../i18n/content';
+import { img, widths } from '../lib/img';
+
+interface Props {
+  t: Content;
+}
+
+const { impact } = Astro.props.t;
+const cover = img('science-bulletin.jpg');
+const nv = img('news-views.jpg');
+---
+
+<section class="section impact">
+  <div class="wrap impact__grid">
+    <div>
+      <p class="kicker" data-reveal>{impact.kicker}</p>
+      <h2 class="h2" data-reveal style="--d:.08s">{impact.title}</h2>
+      <dl class="impact__list">
+        {
+          impact.items.map((it, i) => (
+            <div data-reveal style={`--d:${i * 0.08}s`}>
+              <dt>{it.k}</dt>
+              <dd>{it.v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <div class="impact__covers">
+      <figure class="impact__cover" data-reveal>
+        <Image src={cover} alt={impact.covers[0]} widths={widths(cover, [360, 680])} sizes="(min-width: 960px) 260px, 45vw" loading="lazy" />
+        <figcaption>{impact.covers[0]}</figcaption>
+      </figure>
+      <figure class="impact__nv" data-reveal style="--d:.12s">
+        <div class="impact__paper">
+          <Image src={nv} alt={impact.covers[1]} widths={widths(nv, [480, 900])} sizes="(min-width: 960px) 340px, 90vw" loading="lazy" />
+        </div>
+        <figcaption>{impact.covers[1]}</figcaption>
+      </figure>
+      <p class="impact__more" data-reveal style="--d:.2s">+ {impact.covers[2]}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .impact {
+    background:
+      radial-gradient(50% 70% at 90% 30%, rgba(194, 124, 78, 0.08), transparent 70%),
+      var(--ink-900);
+    border-top: 1px solid var(--line);
+  }
+  .impact__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(40px, 6vw, 96px);
+    align-items: start;
+  }
+  .impact__list {
+    margin: 48px 0 0;
+    border-top: 1px solid var(--line-strong);
+  }
+  .impact__list div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr);
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .impact__list dt {
+    font-size: 17px;
+    color: var(--copper-light);
+  }
+  .impact__list dd {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 15.5px;
+  }
+  .impact__covers {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    gap: 20px;
+    align-items: end;
+    padding-top: 12px;
+  }
+  .impact__covers figure {
+    margin: 0;
+  }
+  .impact__cover img {
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+    transform: rotate(-2deg);
+  }
+  .impact__paper {
+    background: var(--paper);
+    padding: 12px;
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+  }
+  .impact__covers figcaption {
+    margin-top: 16px;
+    font-size: 12.5px;
+    color: var(--text-faint);
+  }
+  .impact__more {
+    grid-column: 1 / -1;
+    margin: 8px 0 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--text-faint);
+  }
+  @media (max-width: 960px) {
+    .impact__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .impact__covers {
+      max-width: 560px;
+    }
+  }
+  @media (max-width: 600px) {
+    .impact__list div {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 6px;
+    }
+  }
+</style>

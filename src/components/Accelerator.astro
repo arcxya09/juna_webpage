@@ -1,0 +1,90 @@
+---
+import type { Content } from '../i18n/content';
+import Fig from './Fig.astro';
+import T from './T.astro';
+
+interface Props {
+  t: Content;
+}
+
+const { accelerator: a } = Astro.props.t;
+---
+
+<section class="section section--deep acc" id="platform">
+  <div class="wrap">
+    <div class="acc__intro">
+      <div>
+        <p class="kicker" data-reveal>{a.kicker}</p>
+        <h2 class="h2" data-reveal style="--d:.08s">{a.title}</h2>
+        <p class="lead" data-reveal style="--d:.16s"><T s={a.body} /></p>
+      </div>
+      <Fig name="accelerator-design.jpg" alt={a.figDesign} caption={a.figDesign} num="FIG. 2.3" plate d={0.1} />
+    </div>
+
+    <div class="acc__photos">
+      <Fig name="accelerator-ground.jpg" alt={a.figGround} caption={a.figGround} num="FIG. 2.4" ratio="4 / 3" />
+      <Fig name="accelerator-install.jpg" alt={a.figInstall} caption={a.figInstall} num="FIG. 2.5" ratio="4 / 3" d={0.12} />
+    </div>
+
+    <div class="table-scroll acc__table" data-reveal>
+      <table class="table">
+        <thead>
+          <tr>{a.table.head.map((h) => <th scope="col"><T s={h} /></th>)}</tr>
+        </thead>
+        <tbody>
+          {
+            a.table.rows.map((row) => (
+              <tr class:list={[row[0] === 'JUNA' && 'is-hl']}>
+                {row.map((c, i) => (i === 0 ? <th scope="row"><T s={c} /></th> : <td><T s={c} /></td>))}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="src" data-reveal>{a.table.note}</p>
+  </div>
+</section>
+
+<style>
+  .acc__intro {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: clamp(40px, 6vw, 96px);
+    align-items: center;
+    margin-bottom: clamp(56px, 7vw, 96px);
+  }
+  .acc__photos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: clamp(64px, 8vw, 112px);
+  }
+  .acc__table tbody th {
+    text-align: left;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--text);
+    padding: 18px 20px 18px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .acc__table tr.is-hl th {
+    color: var(--copper-light);
+  }
+  .acc__table td {
+    white-space: nowrap;
+  }
+  @media (max-width: 960px) {
+    .acc__intro {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 640px) {
+    .acc__photos {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

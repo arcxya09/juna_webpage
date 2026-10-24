@@ -1,5 +1,5 @@
 // Scroll-driven motion: reveal-on-scroll, number counters, parallax layers,
-// the laboratory depth gauge, nav state and the mobile menu.
+// reading progress, nav state, the milestone scroller and the mobile menu.
 
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -17,8 +17,7 @@ const revealObserver = new IntersectionObserver(
 );
 document.querySelectorAll('[data-reveal]').forEach((el) => revealObserver.observe(el));
 
-// Count numbers up from zero the first time they are seen.
-const fmt = new Intl.NumberFormat('en-US');
+// Count whole numbers up from zero the first time they are seen.
 const countObserver = new IntersectionObserver(
   (entries) => {
     for (const e of entries) {
@@ -26,7 +25,8 @@ const countObserver = new IntersectionObserver(
       countObserver.unobserve(e.target);
       const el = e.target as HTMLElement;
       const target = Number(el.dataset.count);
-      if (reduce) continue;
+      if (reduce || !target) continue;
+      const fmt = new Intl.NumberFormat('en-US', { useGrouping: (el.textContent ?? '').includes(',') });
       const start = performance.now();
       const dur = 1800;
       const step = (now: number) => {
@@ -35,7 +35,6 @@ const countObserver = new IntersectionObserver(
         el.textContent = fmt.format(Math.round(target * eased));
         if (k < 1) requestAnimationFrame(step);
       };
-      el.textContent = '0';
       requestAnimationFrame(step);
     }
   },
@@ -43,27 +42,30 @@ const countObserver = new IntersectionObserver(
 );
 document.querySelectorAll<HTMLElement>('[data-count]').forEach((el) => countObserver.observe(el));
 
-// Nav background, active link, parallax and depth gauge all follow scroll.
+// Nav background, active link, parallax and the progress bar follow scroll.
 const nav = document.querySelector<HTMLElement>('[data-nav]');
 const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('.nav__links a'));
 const sections = navLinks
   .map((a) => document.querySelector<HTMLElement>(a.getAttribute('href')!))
   .filter((s): s is HTMLElement => !!s);
 const parallax = Array.from(document.querySelectorAll<HTMLElement>('[data-parallax]'));
-const depth = document.querySelector<HTMLElement>('[data-depth]');
-const depthFill = document.querySelector<HTMLElement>('[data-depth-fill]');
-const depthMarker = document.querySelector<HTMLElement>('[data-depth-marker]');
-const depthReadout = document.querySelector<HTMLElement>('[data-depth-readout]');
+const progress = document.querySelector<HTMLElement>('[data-progress]');
 
 let ticking = false;
 const onScroll = () => {
   ticking = false;
   const vh = window.innerHeight;
-  nav?.classList.toggle('is-scrolled', window.scrollY > 40);
+  const y = window.scrollY;
+  nav?.classList.toggle('is-scrolled', y > 40);
 
   let current: HTMLElement | null = null;
   for (const s of sections) if (s.getBoundingClientRect().top < vh * 0.4) current = s;
   navLinks.forEach((a) => a.classList.toggle('is-active', !!current && a.getAttribute('href') === `#${current.id}`));
+
+  if (progress) {
+    const max = document.documentElement.scrollHeight - vh;
+    progress.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
+  }
 
   if (!reduce) {
     for (const el of parallax) {
@@ -74,17 +76,6 @@ const onScroll = () => {
       const offset = (r.top + r.height / 2 - vh / 2) * -speed;
       el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
     }
-  }
-
-  if (depth && depthFill && depthMarker && depthReadout) {
-    // The marker follows a reading line at 60% of the viewport down the track.
-    const r = depthFill.parentElement!.getBoundingClientRect();
-    const k = Math.min(1, Math.max(0, (vh * 0.6 - r.top) / r.height));
-    const pct = `${(k * 100).toFixed(2)}%`;
-    depthFill.style.height = pct;
-    depthMarker.style.top = pct;
-    const m = Math.round(k * 2400);
-    depthReadout.textContent = m ? `−${fmt.format(m)}` : '0';
   }
 };
 
@@ -100,6 +91,52 @@ window.addEventListener(
 );
 window.addEventListener('resize', onScroll);
 onScroll();
+
+// Milestones: arrow buttons, drag to scroll with a mouse, and a progress rule.
+document.querySelectorAll<HTMLElement>('[data-tl]').forEach((tl) => {
+  const section = tl.closest('section')!;
+  const track = tl.querySelector<HTMLElement>('[data-tl-track]')!;
+  const prev = section.querySelector<HTMLButtonElement>('[data-tl-prev]');
+  const next = section.querySelector<HTMLButtonElement>('[data-tl-next]');
+  const bar = section.querySelector<HTMLElement>('[data-tl-progress]');
+
+  const update = () => {
+    const max = track.scrollWidth - track.clientWidth;
+    const k = max > 0 ? track.scrollLeft / max : 1;
+    const visible = track.clientWidth / track.scrollWidth;
+    if (bar) bar.style.transform = `translateX(${(k * (1 - visible) * 100).toFixed(2)}%) scaleX(${visible.toFixed(3)})`;
+    if (prev) prev.disabled = track.scrollLeft <= 2;
+    if (next) next.disabled = track.scrollLeft >= max - 2;
+  };
+  const page = (dir: number) =>
+    track.scrollBy({ left: dir * track.clientWidth * 0.75, behavior: reduce ? 'auto' : 'smooth' });
+  prev?.addEventListener('click', () => page(-1));
+  next?.addEventListener('click', () => page(1));
+  track.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+
+  let startX = 0;
+  let startLeft = 0;
+  let dragging = false;
+  track.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    dragging = true;
+    startX = e.clientX;
+    startLeft = track.scrollLeft;
+    track.setPointerCapture(e.pointerId);
+    track.classList.add('is-dragging');
+  });
+  track.addEventListener('pointermove', (e) => {
+    if (dragging) track.scrollLeft = startLeft - (e.clientX - startX);
+  });
+  const end = () => {
+    dragging = false;
+    track.classList.remove('is-dragging');
+  };
+  track.addEventListener('pointerup', end);
+  track.addEventListener('pointercancel', end);
+});
 
 // Mobile menu.
 const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');

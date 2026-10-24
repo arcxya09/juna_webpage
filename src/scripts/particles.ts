@@ -1,4 +1,4 @@
-// Hero background: drifting particles with occasional "beam" streaks.
+// Hero overlay: faint drifting motes over the photo, with an occasional beam streak.
 // Pauses when off-screen and respects prefers-reduced-motion.
 
 const canvas = document.querySelector<HTMLCanvasElement>('[data-particles]');
@@ -26,14 +26,14 @@ if (canvas) {
     canvas.width = w * dpr;
     canvas.height = h * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const count = Math.round(Math.min(220, (w * h) / 7000));
+    const count = Math.round(Math.min(130, (w * h) / 12000));
     parts = Array.from({ length: count }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
       z: Math.random() * 0.9 + 0.1,
       vx: (Math.random() - 0.5) * 0.08,
       vy: -Math.random() * 0.12 - 0.02,
-      warm: Math.random() < 0.22,
+      warm: Math.random() < 0.35,
     }));
   };
 
@@ -57,16 +57,16 @@ if (canvas) {
       if (p.x > w + 10) p.x = -10;
       const px = p.x + mx * 18 * p.z;
       const py = p.y + my * 12 * p.z;
-      const r = p.z * 1.6 + 0.2;
+      const r = p.z * 1.3 + 0.2;
       ctx.beginPath();
       ctx.arc(px, py, r, 0, Math.PI * 2);
       ctx.fillStyle = p.warm
-        ? `rgba(224,167,122,${0.35 + p.z * 0.55})`
-        : `rgba(220,228,240,${0.15 + p.z * 0.5})`;
+        ? `rgba(227,171,128,${0.2 + p.z * 0.45})`
+        : `rgba(220,228,240,${0.08 + p.z * 0.3})`;
       ctx.fill();
     }
 
-    if (Math.random() < 0.012 && streaks.length < 3) spawnStreak();
+    if (Math.random() < 0.006 && streaks.length < 2) spawnStreak();
     streaks = streaks.filter((s) => s.life > 0);
     for (const s of streaks) {
       const progress = 1 - s.life;
@@ -76,7 +76,7 @@ if (canvas) {
       const ty = hy - Math.sin(s.angle) * s.len;
       const g = ctx.createLinearGradient(tx, ty, hx, hy);
       g.addColorStop(0, 'rgba(224,167,122,0)');
-      g.addColorStop(1, `rgba(240,200,160,${0.7 * s.life})`);
+      g.addColorStop(1, `rgba(240,200,160,${0.45 * s.life})`);
       ctx.strokeStyle = g;
       ctx.lineWidth = 1.2;
       ctx.beginPath();

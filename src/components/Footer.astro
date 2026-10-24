@@ -1,54 +1,118 @@
 ---
-import type { Content } from '../i18n/content';
+import type { Content, Lang } from '../i18n/content';
 
 interface Props {
   t: Content;
+  lang: Lang;
 }
 
-const { t } = Astro.props;
+const { t, lang } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const otherHref = lang === 'zh' ? `${base}/en/` : `${base}/`;
 const year = new Date().getFullYear();
+const links = ['science', 'underground', 'platform', 'history', 'results', 'future', 'team'] as const;
 ---
 
 <footer class="footer">
-  <div class="wrap footer__inner">
-    <div class="footer__brand">
-      <strong>JUNA</strong>
-      <span>{t.footer.line}</span>
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <svg viewBox="0 0 64 64" width="40" height="40" aria-hidden="true">
+          <circle cx="32" cy="32" r="19" fill="none" stroke="currentColor" stroke-width="2"></circle>
+          <circle cx="32" cy="32" r="5" fill="var(--copper-light)"></circle>
+          <path d="M6 46 L58 18" stroke="currentColor" stroke-width="1.2" opacity=".6"></path>
+        </svg>
+        <div>
+          <strong>JUNA</strong>
+          <span>{t.footer.line}</span>
+          <span>{t.footer.org}</span>
+        </div>
+      </div>
+      <nav class="footer__nav" aria-label="Footer">
+        {links.map((k) => <a href={`#${k}`}>{t.nav[k]}</a>)}
+      </nav>
     </div>
-    <p class="footer__note">{t.footer.note}</p>
-    <p class="footer__copy">© {year} JUNA</p>
+    <div class="footer__bottom">
+      <p>{t.footer.note}</p>
+      <p class="footer__tools">
+        <a href={otherHref}>{t.nav.switchLabel}</a>
+        <a href="#top">{t.footer.top} ↑</a>
+        <span>© {year} JUNA</span>
+      </p>
+    </div>
   </div>
 </footer>
 
 <style>
   .footer {
-    border-top: 1px solid var(--line);
-    padding: 40px 0;
     background: var(--ink-950);
-    font-size: 13px;
+    border-top: 1px solid var(--line);
+    padding: 72px 0 40px;
+    font-size: 14px;
     color: var(--text-faint);
   }
-  .footer__inner {
+  .footer__top {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 16px 40px;
+    justify-content: space-between;
+    gap: 40px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--line);
   }
   .footer__brand {
     display: flex;
-    gap: 16px;
-    align-items: baseline;
+    gap: 20px;
+    align-items: flex-start;
+    color: var(--text);
+  }
+  .footer__brand div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
   .footer__brand strong {
-    color: var(--text);
-    letter-spacing: 0.32em;
     font-weight: 600;
+    letter-spacing: 0.32em;
+    font-size: 18px;
+    margin-bottom: 6px;
   }
-  .footer__note {
+  .footer__brand span {
+    color: var(--text-faint);
+  }
+  .footer__nav {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 12px 40px;
+    align-content: start;
+  }
+  .footer__nav a,
+  .footer__tools a {
+    transition: color 0.2s;
+  }
+  .footer__nav a:hover,
+  .footer__tools a:hover {
+    color: var(--copper-light);
+  }
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px 40px;
+    padding-top: 28px;
+    font-size: 13px;
+  }
+  .footer__bottom p {
     margin: 0;
   }
-  .footer__copy {
-    margin: 0 0 0 auto;
+  .footer__tools {
+    display: flex;
+    gap: 28px;
     font-family: var(--font-mono);
+    font-size: 12px;
+  }
+  @media (max-width: 600px) {
+    .footer__nav {
+      grid-template-columns: repeat(2, auto);
+    }
   }
 </style>

@@ -1,0 +1,116 @@
+---
+import type { Content } from '../i18n/content';
+import Fig from './Fig.astro';
+
+interface Props {
+  t: Content;
+}
+
+const { cjpl } = Astro.props.t;
+---
+
+<section class="section cjpl">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker" data-reveal>{cjpl.kicker}</p>
+      <h2 class="h2" data-reveal style="--d:.08s">{cjpl.title}</h2>
+    </div>
+
+    <div class="cjpl__row">
+      <Fig
+        class="cjpl__mountain"
+        name="mountain-section.jpg"
+        alt={cjpl.figMountain}
+        caption={cjpl.figMountain}
+        num="FIG. 2.1"
+        sizes="(min-width: 960px) 58vw, 100vw"
+      />
+      <ol class="cjpl__facts">
+        {
+          cjpl.facts.map((f, i) => (
+            <li data-reveal style={`--d:${i * 0.08}s`}>
+              <span>{String(i + 1).padStart(2, '0')}</span>
+              <p>{f}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    <div class="cjpl__layout">
+      <Fig name="cjpl-layout.jpg" alt={cjpl.figLayout} plate sizes="(min-width: 960px) 66vw, 100vw" />
+      <p class="cjpl__cap" data-reveal>
+        <span>FIG. 2.2</span>
+        {cjpl.figLayout}
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cjpl__row {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(32px, 5vw, 80px);
+    align-items: start;
+  }
+  .cjpl__facts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line-strong);
+  }
+  .cjpl__facts li {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 12px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .cjpl__facts span {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--copper);
+    padding-top: 5px;
+  }
+  .cjpl__facts p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 16px;
+  }
+  .cjpl__layout {
+    margin-top: clamp(64px, 8vw, 112px);
+    display: grid;
+    grid-template-columns: minmax(0, 8fr) minmax(0, 3fr);
+    gap: 32px;
+    align-items: end;
+  }
+  .cjpl__cap {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-faint);
+    border-top: 1px solid var(--line-strong);
+    padding-top: 16px;
+  }
+  .cjpl__cap span {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--copper);
+    margin-bottom: 6px;
+  }
+  @media (max-width: 960px) {
+    .cjpl__row,
+    .cjpl__layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .cjpl__layout {
+      gap: 16px;
+    }
+    .cjpl__cap {
+      border: 0;
+      padding: 0;
+    }
+  }
+</style>

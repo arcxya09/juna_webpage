@@ -1,0 +1,112 @@
+---
+import type { Content } from '../i18n/content';
+import T from './T.astro';
+
+interface Props {
+  t: Content;
+}
+
+const { keys } = Astro.props.t;
+---
+
+<section class="section keys">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker" data-reveal>{keys.kicker}</p>
+      <h2 class="h2" data-reveal style="--d:.08s">{keys.title}</h2>
+    </div>
+    <div class="keys__grid">
+      {
+        keys.items.map((k, i) => (
+          <article class="key" data-reveal style={`--d:${i * 0.12}s`}>
+            <p class="key__k">
+              <span>{String.fromCharCode(65 + i)}</span>
+              {k.k}
+            </p>
+            <p class="key__big">
+              <span class="key__num">
+                <T s={k.big} />
+              </span>
+              <span class="key__unit">{k.unit}</span>
+            </p>
+            <p class="key__v">{k.v}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .keys {
+    background:
+      radial-gradient(60% 80% at 85% 20%, rgba(194, 124, 78, 0.07), transparent 70%),
+      var(--ink-900);
+  }
+  .keys__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--line-strong);
+  }
+  .key {
+    padding: 36px clamp(24px, 4vw, 64px) 8px 0;
+  }
+  .key + .key {
+    padding-left: clamp(24px, 4vw, 64px);
+    border-left: 1px solid var(--line);
+  }
+  .key__k {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 18px;
+    margin: 0 0 28px;
+  }
+  .key__k span {
+    display: inline-grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--copper);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--copper-light);
+  }
+  .key__big {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 0 0 24px;
+  }
+  .key__num {
+    font-size: clamp(56px, 8vw, 120px);
+    font-weight: 150;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .key__unit {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    color: var(--copper-light);
+  }
+  .key__v {
+    color: var(--text-dim);
+    max-width: 30em;
+    margin: 0;
+  }
+  @media (max-width: 760px) {
+    .keys__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .key,
+    .key + .key {
+      padding: 32px 0 24px;
+      border-left: 0;
+    }
+    .key + .key {
+      border-top: 1px solid var(--line);
+    }
+  }
+</style>

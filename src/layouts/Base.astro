@@ -1,6 +1,11 @@
 ---
+import '@fontsource-variable/inter/opsz.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
 import '../styles/global.css';
+import { getImage } from 'astro:assets';
 import type { Lang } from '../i18n/content';
+import { img } from '../lib/img';
 
 interface Props {
   lang: Lang;
@@ -11,6 +16,8 @@ interface Props {
 const { lang, title, description } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const htmlLang = lang === 'zh' ? 'zh-CN' : 'en';
+const og = await getImage({ src: img('hero-accelerator.jpg'), width: 1200, format: 'jpg' });
+const ogUrl = new URL(og.src, Astro.site).href;
 ---
 
 <!doctype html>
@@ -20,19 +27,15 @@ const htmlLang = lang === 'zh' ? 'zh-CN' : 'en';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0a1220" />
+    <meta name="theme-color" content="#08101c" />
+    <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={`${base}/images/hero-space.jpg`} />
+    <meta property="og:image" content={ogUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
     <link rel="alternate" hreflang="zh-CN" href={`${base}/`} />
     <link rel="alternate" hreflang="en" href={`${base}/en/`} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
     <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body>

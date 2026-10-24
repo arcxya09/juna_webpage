@@ -1,0 +1,142 @@
+---
+import { Image } from 'astro:assets';
+import type { Content } from '../i18n/content';
+import { img, widths } from '../lib/img';
+import T from './T.astro';
+
+interface Props {
+  t: Content;
+}
+
+const { instruments: ins } = Astro.props.t;
+const media = [
+  { name: 'bgo-chamber.png', fit: 'contain' },
+  { name: 'neutron-array.jpg', fit: 'cover' },
+  { name: 'targets.jpg', fit: 'cover' },
+];
+---
+
+<section class="section section--deep section--rule">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker" data-reveal>{ins.kicker}</p>
+      <h2 class="h2" data-reveal style="--d:.08s">{ins.title}</h2>
+    </div>
+    <div class="ins">
+      {
+        ins.items.map((it, i) => (
+          <article class="ins__card" data-reveal style={`--d:${i * 0.1}s`}>
+            <div class:list={['ins__media', `ins__media--${media[i].fit}`]}>
+              <Image src={img(media[i].name)} alt={it.k} widths={widths(img(media[i].name), [480, 800])} sizes="(min-width: 960px) 420px, 100vw" loading="lazy" />
+            </div>
+            <div class="ins__body">
+              <span class="ins__i">0{i + 1}</span>
+              <h3>{it.k}</h3>
+              <ul>
+                {it.points.map((p) => (
+                  <li>
+                    <T s={p} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+    <p class="src" data-reveal>{ins.source}</p>
+  </div>
+</section>
+
+<style>
+  .ins {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .ins__card {
+    display: flex;
+    flex-direction: column;
+    background: var(--ink-850);
+    border: 1px solid var(--line);
+  }
+  .ins__media {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--paper);
+  }
+  .ins__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s var(--ease);
+  }
+  .ins__media--contain img {
+    object-fit: contain;
+    padding: 14px;
+  }
+  .ins__card:hover .ins__media img {
+    transform: scale(1.04);
+  }
+  .ins__body {
+    padding: 28px 28px 30px;
+  }
+  .ins__i {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--copper);
+    letter-spacing: 0.14em;
+  }
+  .ins__body h3 {
+    font-size: 21px;
+    font-weight: 400;
+    margin: 10px 0 18px;
+  }
+  .ins__body ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .ins__body li {
+    position: relative;
+    padding: 10px 0 10px 20px;
+    border-top: 1px solid var(--line);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-dim);
+  }
+  .ins__body li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 21px;
+    width: 8px;
+    height: 1px;
+    background: var(--copper);
+  }
+  @media (max-width: 960px) {
+    .ins {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .ins__card {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    }
+    .ins__media {
+      aspect-ratio: auto;
+      min-height: 100%;
+    }
+  }
+  @media (max-width: 600px) {
+    .ins__card {
+      display: flex;
+    }
+    .ins__media {
+      aspect-ratio: 16 / 10;
+      min-height: 0;
+    }
+    .ins__body {
+      padding: 22px 20px 24px;
+    }
+  }
+</style>
