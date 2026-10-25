@@ -7,6 +7,10 @@ export type Lang = 'zh' | 'en';
 // preliminary or under review. Flip this once the collaboration clears them.
 export const SHOW_PRELIMINARY = false;
 
+// JUNA's own points on the 12C(α,γ)16O lowest-energy chart: 552.5 keV from the
+// first campaign and 520 keV from the 2026 campaign, the latter marked preliminary.
+export const SHOW_GRAIL_JUNA = true;
+
 const zh = {
   meta: {
     title: 'JUNA · 锦屏深地核天体物理实验',
@@ -298,6 +302,8 @@ const zh = {
     chartBand: ['伽莫夫窗口', '约 220–380 keV'],
     chartApprox: '约 ',
     chartJuna: '向伽莫夫窗口推进',
+    chartPrelim: '初步',
+    chartNoteJuna: '铜色为 JUNA：实心点为第一轮，空心点为 2026 年第二轮的初步结果。',
     juna: 'JUNA 第二轮实验改用高纯 ¹²C 金刚石靶和扩大的 BGO 阵列，信噪比显著提升，已取得重要进展。结果正在分析，以正式发表为准。',
     junaPrelim: 'JUNA 第一轮把最低能量推进到 552.5 keV，2026 年第二轮推进到 520 keV（初步结果）。',
     gw: {
@@ -690,6 +696,8 @@ const en: typeof zh = {
     chartBand: ['Gamow window', '~220–380 keV'],
     chartApprox: '~',
     chartJuna: 'pushing toward the Gamow window',
+    chartPrelim: 'preliminary',
+    chartNoteJuna: ' Copper marks JUNA: the filled point is the first campaign, the open point the preliminary 2026 result.',
     juna: 'JUNA’s second campaign switched to a high-purity ¹²C diamond target and an enlarged BGO array, greatly improving the signal-to-noise ratio, and has made important progress. Results are under analysis; the published paper will be authoritative.',
     junaPrelim: 'JUNA’s first campaign pushed the lowest energy to 552.5 keV, and the 2026 second campaign to 520 keV (preliminary).',
     gw: {
@@ -829,5 +837,5 @@ export const grailOthers = [
 ];
 export const grailJuna = [
   { year: 2021, e: 552.5, who: 'JUNA 2021' },
-  { year: 2026, e: 520.4, who: 'JUNA 2026' },
+  { year: 2026, e: 520, who: 'JUNA 2026' },
 ];
