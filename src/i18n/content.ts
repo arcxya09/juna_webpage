@@ -25,7 +25,6 @@ const zh = {
     switchAria: 'Switch to English',
   },
   hero: {
-    kicker: 'JUNA 锦屏深地核天体物理实验 Jinping Underground Nuclear Astrophysics Experiment',
     title: '在地下 2400 米\n测量恒星的核火',
     lead: '锦屏深地核天体物理实验（JUNA）把强流加速器搬进世界最深的地下实验室，在恒星真实燃烧的能区直接测量驱动恒星演化、合成宇宙元素的关键核反应。',
     cta: '开始探索',
@@ -389,7 +388,6 @@ const en: typeof zh = {
     switchAria: '切换到中文',
   },
   hero: {
-    kicker: 'JUNA 锦屏深地核天体物理实验 Jinping Underground Nuclear Astrophysics Experiment',
     title: '2,400 m underground,\nmeasuring the fire of stars',
     lead: 'The Jinping Underground Nuclear Astrophysics experiment (JUNA) brought a high-intensity accelerator into the deepest underground laboratory on Earth to measure, at the energies where stars actually burn, the nuclear reactions that drive stellar evolution and forge the elements.',
     cta: 'Start exploring',

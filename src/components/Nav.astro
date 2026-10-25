@@ -10,12 +10,23 @@ const { t, lang } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const otherHref = lang === 'zh' ? `${base}/en/` : `${base}/`;
 const links = ['science', 'underground', 'platform', 'history', 'results', 'future', 'team'] as const;
+// The banner needs ~300px. Where the links leave no room for it (English
+// labels on small laptops, very narrow phones) fall back to the logo mark.
+const markMedia = lang === 'en' ? '(max-width: 340px), (min-width: 961px) and (max-width: 1240px)' : '(max-width: 340px)';
 ---
 
 <header class="nav" data-nav>
   <div class="nav__inner">
     <a class="brand" href="#top">
-      <img src={`${base}/brand/juna-logo-dark.svg`} alt="JUNA" width="72" height="40" />
+      <picture>
+        <source media={markMedia} srcset={`${base}/brand/juna-logo-dark.svg`} width="108" height="60" />
+        <img
+          src={`${base}/brand/juna-banner-dark.svg`}
+          alt="JUNA 锦屏深地核天体物理实验 Jinping Underground Nuclear Astrophysics Experiment"
+          width="480"
+          height="67"
+        />
+      </picture>
     </a>
     <nav class="nav__links" aria-label="Sections">
       {links.map((k) => <a href={`#${k}`}>{t.nav[k]}</a>)}
@@ -59,8 +70,9 @@ const links = ['science', 'underground', 'platform', 'history', 'results', 'futu
     flex: none;
   }
   .brand img {
+    display: block;
     width: auto;
-    height: 40px;
+    height: 42px;
   }
   .nav__links {
     display: flex;
@@ -145,6 +157,12 @@ const links = ['science', 'underground', 'platform', 'history', 'results', 'futu
   }
 
   @media (max-width: 960px) {
+    .nav__inner {
+      gap: 16px;
+    }
+    .brand img {
+      height: 32px;
+    }
     .nav__links {
       position: fixed;
       inset: var(--nav-h) 0 auto 0;
@@ -179,6 +197,11 @@ const links = ['science', 'underground', 'platform', 'history', 'results', 'futu
     }
     .nav__toggle {
       display: block;
+    }
+  }
+  @media (max-width: 380px) {
+    .brand img {
+      height: 28px;
     }
   }
 </style>
