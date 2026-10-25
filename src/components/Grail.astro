@@ -1,5 +1,5 @@
 ---
-import { grailJuna, grailOthers, grailRecords, SHOW_PRELIMINARY, type Content } from '../i18n/content';
+import { grailJuna, grailOthers, grailRecords, SHOW_GRAIL_JUNA, SHOW_PRELIMINARY, type Content } from '../i18n/content';
 import T from './T.astro';
 
 interface Props {
@@ -7,40 +7,55 @@ interface Props {
 }
 
 const { grail } = Astro.props.t;
+const showJuna = SHOW_PRELIMINARY || SHOW_GRAIL_JUNA;
 
 // Lowest energy reached by direct measurements, by year. Styled after the
 // collaboration's report figure: records joined by a dashed trail, other
-// measurements as open circles, the Gamow window as a solid band.
-const W = 1000;
-const H = 520;
-const pad = { l: 92, r: 36, t: 24, b: 56 };
+// measurements as open circles, the Gamow window as a solid band. A second,
+// taller drawing replaces it on phones, with the records listed beneath.
 const x0 = 1950;
 const x1 = 2030;
 const yMax = 2800;
-const sx = (y: number) => pad.l + ((y - x0) / (x1 - x0)) * (W - pad.l - pad.r);
-const sy = (e: number) => H - pad.b - (e / yMax) * (H - pad.t - pad.b);
-const xTicks = [1950, 1970, 1990, 2010, 2030];
-const yTicks = [1000, 2000];
 const band = { lo: 220, hi: 380 };
-const trail = grailRecords.map((r, i) => `${i ? 'L' : 'M'}${sx(r.year)} ${sy(r.e)}`).join(' ');
+const frame = (W: number, H: number, pad: { l: number; r: number; t: number; b: number }) => ({
+  W,
+  H,
+  pad,
+  sx: (y: number) => pad.l + ((y - x0) / (x1 - x0)) * (W - pad.l - pad.r),
+  sy: (e: number) => H - pad.b - (e / yMax) * (H - pad.t - pad.b),
+});
+const d = frame(1000, 520, { l: 92, r: 36, t: 24, b: 56 });
+const m = frame(360, 440, { l: 46, r: 16, t: 24, b: 40 });
+const trailPath = (f: typeof d) => grailRecords.map((r, i) => `${i ? 'L' : 'M'}${f.sx(r.year)} ${f.sy(r.e)}`).join(' ');
 const last = grailRecords[grailRecords.length - 1];
+const junaPath = (f: typeof d) =>
+  `M${f.sx(last.year)} ${f.sy(last.e)} ${grailJuna.map((r) => `L${f.sx(r.year)} ${f.sy(r.e)}`).join(' ')}`;
+const isPrelim = (who: string) => who === 'JUNA 2026';
+const energy = (p: { who: string; e: number }) => `${p.who === 'Bloom' ? grail.chartApprox : ''}${p.e} keV`;
+
 // Hand-placed labels, as in the report figure: [dx, dy, anchor].
-const place: Record<string, [number, number, 'start' | 'end']> = {
+const place: Record<string, [number, number, 'start' | 'end' | 'middle']> = {
   Bloom: [16, 6, 'start'],
   Larson: [16, 6, 'start'],
   Jaszczak: [6, -22, 'start'],
   Kettner: [62, 44, 'start'],
   Redder: [-16, 6, 'end'],
   Hammer: [-6, 42, 'end'],
-  'JUNA 2021': [-16, 30, 'end'],
-  'JUNA 2026': [16, -4, 'start'],
 };
-const labelled = SHOW_PRELIMINARY ? [...grailRecords, ...grailJuna] : grailRecords;
-const juna = `M${sx(last.year)} ${sy(last.e)} ${grailJuna.map((r) => `L${sx(r.year)} ${sy(r.e)}`).join(' ')}`;
-// Without published numbers JUNA is drawn as a direction, not a data point.
-const arrowX = sx(2024);
-const arrowTo = sy(band.hi) - 8;
+// Phones label records by year only; the list below the chart names them.
+const placeM: Record<string, [number, number, 'start' | 'end' | 'middle']> = {
+  Bloom: [9, 4, 'start'],
+  Larson: [9, 4, 'start'],
+  Jaszczak: [-9, 4, 'end'],
+  Kettner: [0, 18, 'middle'],
+  Redder: [-9, 4, 'end'],
+  Hammer: [-6, 16, 'end'],
+};
+// Without JUNA's numbers it is drawn as a direction, not a data point.
+const arrowX = d.sx(2024);
+const arrowTo = d.sy(band.hi) - 8;
 const delay = (y: number) => `--t:${0.2 + ((y - 1955) / 70) * 1.6}s`;
+const records = showJuna ? [...grailRecords, ...grailJuna] : grailRecords;
 ---
 
 <section class="section section--deep grail" id="grail">
@@ -76,84 +91,183 @@ const delay = (y: number) => `--t:${0.2 + ((y - 1955) / 70) * 1.6}s`;
         <span class="label">FIG. 4.2</span>
         <span>{grail.chartTitle}</span>
       </figcaption>
-      <div class="grail__scroll">
-        <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={grail.chartTitle}>
-          <defs>
-            <mask id="grail-trail" maskUnits="userSpaceOnUse">
-              <path class="trail-mask" d={trail} pathLength="1" />
-            </mask>
-          </defs>
-          <g class="grid">
-            {yTicks.map((e) => <line x1={pad.l} x2={W - pad.r} y1={sy(e)} y2={sy(e)} />)}
-          </g>
-          <rect class="band" x={pad.l} width={W - pad.l - pad.r} y={sy(band.hi)} height={sy(band.lo) - sy(band.hi)}></rect>
-          <text class="band-label" x={pad.l + 18} y={sy(band.hi) - 14}>
-            {grail.chartBand[0]}
-            <tspan dx="16">{grail.chartBand[1]}</tspan>
-          </text>
+      <svg class="grail__svg grail__svg--d" viewBox={`0 0 ${d.W} ${d.H}`} role="img" aria-label={grail.chartTitle}>
+        <defs>
+          <mask id="grail-trail" maskUnits="userSpaceOnUse">
+            <path class="trail-mask" d={trailPath(d)} pathLength="1" />
+          </mask>
+        </defs>
+        <g class="grid">
+          {[1000, 2000].map((e) => <line x1={d.pad.l} x2={d.W - d.pad.r} y1={d.sy(e)} y2={d.sy(e)} />)}
+        </g>
+        <rect class="band" x={d.pad.l} width={d.W - d.pad.l - d.pad.r} y={d.sy(band.hi)} height={d.sy(band.lo) - d.sy(band.hi)}></rect>
+        <text class="band-label" x={d.pad.l + 18} y={d.sy(band.hi) - 14}>
+          {grail.chartBand[0]}
+          <tspan dx="16">{grail.chartBand[1]}</tspan>
+        </text>
 
-          <path class="axis" d={`M${pad.l} ${pad.t} V${sy(0)} H${W - pad.r}`}></path>
-          {
-            [0, ...yTicks].map((e) => (
-              <text class="tick" x={pad.l - 14} y={sy(e) + 5} text-anchor="end">
-                {e}
-              </text>
-            ))
-          }
-          {
-            xTicks.map((y) => (
-              <text class="tick" x={sx(y)} y={H - pad.b + 30} text-anchor="middle">
-                {y}
-              </text>
-            ))
-          }
-          <text class="axis-title" transform={`translate(26 ${(pad.t + sy(0)) / 2}) rotate(-90)`} text-anchor="middle">
-            {grail.chartAxis}
-          </text>
+        <path class="axis" d={`M${d.pad.l} ${d.pad.t} V${d.sy(0)} H${d.W - d.pad.r}`}></path>
+        {
+          [0, 1000, 2000].map((e) => (
+            <text class="tick" x={d.pad.l - 14} y={d.sy(e) + 5} text-anchor="end">
+              {e}
+            </text>
+          ))
+        }
+        {
+          [1950, 1970, 1990, 2010, 2030].map((y) => (
+            <text class="tick" x={d.sx(y)} y={d.H - d.pad.b + 30} text-anchor="middle">
+              {y}
+            </text>
+          ))
+        }
+        <text class="axis-title" transform={`translate(26 ${(d.pad.t + d.sy(0)) / 2}) rotate(-90)`} text-anchor="middle">
+          {grail.chartAxis}
+        </text>
 
-          {grailOthers.map((p) => <circle class="pt pt--other" cx={sx(p.year)} cy={sy(p.e)} r="6.5" style={delay(p.year)} />)}
-          <path class="trail" d={trail} mask="url(#grail-trail)"></path>
-          {
-            SHOW_PRELIMINARY ? (
-              <path class="juna-line" d={juna} style={delay(2021)} />
-            ) : (
-              <g class="juna-dir" style={delay(2024)}>
-                <path class="juna-dir__flat" d={`M${sx(last.year)} ${sy(last.e)} H${arrowX}`} />
-                <path class="juna-dir__line" d={`M${arrowX} ${sy(last.e)} V${arrowTo}`} />
-                <path class="juna-dir__head" d={`M${arrowX - 7} ${arrowTo - 10} L${arrowX} ${arrowTo} L${arrowX + 7} ${arrowTo - 10}`} />
-                <text class="juna-dir__name" x={arrowX - 16} y={sy(last.e) + 34} text-anchor="end">
-                  JUNA
-                </text>
-                <text class="juna-dir__note" x={arrowX - 16} y={sy(last.e) + 56} text-anchor="end">
-                  {grail.chartJuna}
+        {grailOthers.map((p) => <circle class="pt pt--other" cx={d.sx(p.year)} cy={d.sy(p.e)} r="6.5" style={delay(p.year)} />)}
+        <path class="trail" d={trailPath(d)} mask="url(#grail-trail)"></path>
+        {
+          showJuna ? (
+            <path class="juna-line" d={junaPath(d)} style={delay(2021)} />
+          ) : (
+            <g class="juna-dir" style={delay(2024)}>
+              <path class="juna-dir__flat" d={`M${d.sx(last.year)} ${d.sy(last.e)} H${arrowX}`} />
+              <path class="juna-dir__line" d={`M${arrowX} ${d.sy(last.e)} V${arrowTo}`} />
+              <path class="juna-dir__head" d={`M${arrowX - 7} ${arrowTo - 10} L${arrowX} ${arrowTo} L${arrowX + 7} ${arrowTo - 10}`} />
+              <text class="juna-dir__name" x={arrowX - 16} y={d.sy(last.e) + 34} text-anchor="end">
+                JUNA
+              </text>
+              <text class="juna-dir__note" x={arrowX - 16} y={d.sy(last.e) + 56} text-anchor="end">
+                {grail.chartJuna}
+              </text>
+            </g>
+          )
+        }
+        {
+          grailRecords.map((p) => {
+            const [dx, dy, anchor] = place[p.who];
+            return (
+              <g class="rec" style={delay(p.year)}>
+                <circle class="pt pt--rec" cx={d.sx(p.year)} cy={d.sy(p.e)} r="7.5" />
+                <text class="rec-label" x={d.sx(p.year) + dx} y={d.sy(p.e) + dy} text-anchor={anchor}>
+                  {`${p.who} ${p.year}`}
+                  <tspan class="rec-e" dx="14">
+                    {energy(p)}
+                  </tspan>
                 </text>
               </g>
-            )
-          }
-          {
-            labelled.map((p) => {
-              const isJuna = p.who.startsWith('JUNA');
-              const [dx, dy, anchor] = place[p.who];
-              const open = p.who === 'JUNA 2026';
-              return (
-                <g class:list={['rec', isJuna && 'rec--juna']} style={delay(p.year)}>
-                  <circle class:list={['pt', 'pt--rec', open && 'pt--open']} cx={sx(p.year)} cy={sy(p.e)} r="7.5" />
-                  <text class="rec-label" x={sx(p.year) + dx} y={sy(p.e) + dy} text-anchor={anchor}>
-                    {isJuna ? p.who : `${p.who} ${p.year}`}
-                    <tspan class="rec-e" dx="14">{`${p.who === 'Bloom' ? grail.chartApprox : ''}${Math.round(p.e)} keV`}</tspan>
-                  </text>
-                </g>
-              );
-            })
-          }
-        </svg>
-      </div>
-      <p class="grail__note"><T s={grail.chartNote} /></p>
+            );
+          })
+        }
+        {
+          showJuna && (
+            <g class="rec rec--juna" style={delay(2021)}>
+              {grailJuna.map((p) => (
+                <circle class:list={['pt', 'pt--rec', isPrelim(p.who) && 'pt--open']} cx={d.sx(p.year)} cy={d.sy(p.e)} r="7.5" />
+              ))}
+              <text class="rec-label" x={d.sx(2023.5)} y={d.sy(grailJuna[0].e) - 22} text-anchor="middle">
+                JUNA
+              </text>
+            </g>
+          )
+        }
+      </svg>
+      {
+        showJuna && (
+          <p class="grail__key">
+            {grailJuna.map((p) => (
+              <span class:list={[isPrelim(p.who) && 'is-open']}>
+                <i aria-hidden="true" />
+                {p.who}
+                <b>{energy(p)}</b>
+                {isPrelim(p.who) && <em>{grail.chartPrelim}</em>}
+              </span>
+            ))}
+          </p>
+        )
+      }
+
+      <svg class="grail__svg grail__svg--m" viewBox={`0 0 ${m.W} ${m.H}`} role="img" aria-label={grail.chartTitle}>
+        <defs>
+          <mask id="grail-trail-m" maskUnits="userSpaceOnUse">
+            <path class="trail-mask" d={trailPath(m)} pathLength="1" />
+          </mask>
+        </defs>
+        <g class="grid">
+          {[1000, 2000].map((e) => <line x1={m.pad.l} x2={m.W - m.pad.r} y1={m.sy(e)} y2={m.sy(e)} />)}
+        </g>
+        <rect class="band" x={m.pad.l} width={m.W - m.pad.l - m.pad.r} y={m.sy(band.hi)} height={m.sy(band.lo) - m.sy(band.hi)}></rect>
+        <text class="band-label" x={m.pad.l + 8} y={m.sy(band.hi) - 8}>
+          {grail.chartBand[0]}
+          <tspan dx="8">{grail.chartBand[1]}</tspan>
+        </text>
+        <path class="axis" d={`M${m.pad.l} ${m.pad.t} V${m.sy(0)} H${m.W - m.pad.r}`}></path>
+        <text class="tick" x={m.pad.l - 8} y={m.pad.t - 10} text-anchor="end">keV</text>
+        {
+          [0, 1000, 2000].map((e) => (
+            <text class="tick" x={m.pad.l - 8} y={m.sy(e) + 4} text-anchor="end">
+              {e}
+            </text>
+          ))
+        }
+        {
+          [1950, 1990, 2030].map((y, i) => (
+            <text class="tick" x={m.sx(y)} y={m.H - m.pad.b + 24} text-anchor={i === 2 ? 'end' : i ? 'middle' : 'start'}>
+              {y}
+            </text>
+          ))
+        }
+        {grailOthers.map((p) => <circle class="pt pt--other" cx={m.sx(p.year)} cy={m.sy(p.e)} r="4.5" style={delay(p.year)} />)}
+        <path class="trail" d={trailPath(m)} mask="url(#grail-trail-m)"></path>
+        {showJuna && <path class="juna-line" d={junaPath(m)} style={delay(2021)} />}
+        {
+          grailRecords.map((p) => {
+            const [dx, dy, anchor] = placeM[p.who];
+            return (
+              <g class="rec" style={delay(p.year)}>
+                <circle class="pt pt--rec" cx={m.sx(p.year)} cy={m.sy(p.e)} r="5.5" />
+                <text class="rec-year" x={m.sx(p.year) + dx} y={m.sy(p.e) + dy} text-anchor={anchor}>
+                  {p.year}
+                </text>
+              </g>
+            );
+          })
+        }
+        {
+          showJuna && (
+            <g class="rec rec--juna" style={delay(2021)}>
+              {grailJuna.map((p) => (
+                <circle class:list={['pt', 'pt--rec', isPrelim(p.who) && 'pt--open']} cx={m.sx(p.year)} cy={m.sy(p.e)} r="5.5" />
+              ))}
+              <text class="rec-label rec-label--m" x={m.sx(2023.5)} y={m.sy(grailJuna[0].e) - 16} text-anchor="middle">
+                JUNA
+              </text>
+            </g>
+          )
+        }
+      </svg>
+
+      <ol class="grail__list">
+        {
+          records.map((p) => (
+            <li class:list={[p.who.startsWith('JUNA') && 'is-juna']}>
+              <span class="grail__year">{p.year}</span>
+              <span>{p.who.replace(/ \d+$/, '')}</span>
+              <span class="grail__e">
+                {energy(p)}
+                {isPrelim(p.who) && <em>{grail.chartPrelim}</em>}
+              </span>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="grail__note"><T s={showJuna ? `${grail.chartNote}${grail.chartNoteJuna}` : grail.chartNote} /></p>
     </figure>
 
     <div class="grail__juna" data-reveal>
       <span class="label">JUNA</span>
-      <p><T s={SHOW_PRELIMINARY ? `${grail.junaPrelim} ${grail.juna}` : grail.juna} /></p>
+      <p><T s={showJuna ? `${grail.junaPrelim} ${grail.juna}` : grail.juna} /></p>
     </div>
 
     <div class="gw" data-reveal>
@@ -218,17 +332,15 @@ const delay = (y: number) => `--t:${0.2 + ((y - 1955) / 70) * 1.6}s`;
     flex: none;
     color: var(--copper);
   }
-  .grail__scroll {
-    overflow-x: auto;
-  }
   svg {
     display: block;
     width: 100%;
     height: auto;
     overflow: visible;
   }
-  .grail__scroll svg {
-    min-width: 700px;
+  .grail__svg--m,
+  .grail__list {
+    display: none;
   }
   .grid line {
     stroke: var(--line);
@@ -293,6 +405,56 @@ const delay = (y: number) => `--t:${0.2 + ((y - 1955) / 70) * 1.6}s`;
   .rec--juna .rec-e {
     fill: var(--copper-light);
     font-weight: 600;
+  }
+  .grail__key {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 32px;
+    margin: 18px 0 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 14.5px;
+    color: var(--copper-light);
+  }
+  .grail__key span {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .grail__key i {
+    align-self: center;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--copper-light);
+  }
+  .grail__key .is-open i {
+    background: none;
+    border: 2px solid var(--copper-light);
+  }
+  .grail__key b {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .grail__key em {
+    font-style: normal;
+    font-size: 12.5px;
+    opacity: 0.8;
+  }
+  .rec-year {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    fill: var(--text-dim);
+  }
+  .grail__svg--m .tick {
+    font-size: 10.5px;
+  }
+  .grail__svg--m .band-label {
+    font-size: 11.5px;
+  }
+  .rec-label--m {
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
   }
   .juna-line {
     fill: none;
@@ -433,6 +595,55 @@ const delay = (y: number) => `--t:${0.2 + ((y - 1955) / 70) * 1.6}s`;
     }
     .gw__art {
       max-width: 200px;
+    }
+  }
+  /* Phones: the taller drawing, with the records listed underneath. */
+  @media (max-width: 760px) {
+    .grail__svg--d,
+    .grail__key {
+      display: none;
+    }
+    .grail__svg--m {
+      display: block;
+      max-width: 460px;
+    }
+    .grail__list {
+      display: grid;
+      margin: 20px 0 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line);
+      font-size: 14px;
+    }
+    .grail__list li {
+      display: grid;
+      grid-template-columns: 3.4em minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: baseline;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--text-dim);
+    }
+    .grail__year {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-faint);
+    }
+    .grail__e {
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .grail__e em {
+      margin-left: 8px;
+      font-style: normal;
+      font-size: 12px;
+      color: var(--copper-light);
+    }
+    .grail__list li.is-juna,
+    .grail__list li.is-juna .grail__e,
+    .grail__list li.is-juna .grail__year {
+      color: var(--copper-light);
     }
   }
   @media (max-width: 600px) {
