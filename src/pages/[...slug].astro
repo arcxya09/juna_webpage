@@ -1,0 +1,111 @@
+---
+// Every page of the site, in both languages: / and /en/ plus one page per chapter.
+import Site from '../layouts/Site.astro';
+import PageHead from '../components/PageHead.astro';
+import NextChapter from '../components/NextChapter.astro';
+import Hero from '../components/Hero.astro';
+import Intro from '../components/Intro.astro';
+import Explore from '../components/Explore.astro';
+import Marquee from '../components/Marquee.astro';
+import Highlights from '../components/Highlights.astro';
+import Stars from '../components/Stars.astro';
+import Gamow from '../components/Gamow.astro';
+import Needs from '../components/Needs.astro';
+import Keys from '../components/Keys.astro';
+import Labs from '../components/Labs.astro';
+import Cjpl from '../components/Cjpl.astro';
+import Accelerator from '../components/Accelerator.astro';
+import Instruments from '../components/Instruments.astro';
+import History from '../components/History.astro';
+import Results from '../components/Results.astro';
+import Impact from '../components/Impact.astro';
+import Upgrade from '../components/Upgrade.astro';
+import Grail from '../components/Grail.astro';
+import Plan from '../components/Plan.astro';
+import Team from '../components/Team.astro';
+import { content, type Lang } from '../i18n/content';
+import { CHAPTERS, type PageKey } from '../lib/routes';
+
+export function getStaticPaths() {
+  const pages: PageKey[] = ['home', ...CHAPTERS];
+  return (['zh', 'en'] as const).flatMap((lang) =>
+    pages.map((page) => {
+      const parts = [lang === 'en' ? 'en' : '', page === 'home' ? '' : page].filter(Boolean);
+      return { params: { slug: parts.length ? parts.join('/') : undefined }, props: { lang, page } };
+    }),
+  );
+}
+
+interface Props {
+  lang: Lang;
+  page: PageKey;
+}
+
+const { lang, page } = Astro.props;
+const t = content[lang];
+---
+
+<Site lang={lang} page={page}>
+  {
+    page === 'home' && (
+      <>
+        <Hero t={t} lang={lang} />
+        <Intro t={t} />
+        <Explore t={t} lang={lang} />
+        <Marquee />
+        <Highlights t={t} lang={lang} />
+      </>
+    )
+  }
+  {
+    page === 'science' && (
+      <>
+        <PageHead t={t} page={page} />
+        <Stars t={t} />
+        <Gamow t={t} />
+        <Needs t={t} />
+      </>
+    )
+  }
+  {
+    page === 'facility' && (
+      <>
+        <PageHead t={t} page={page} />
+        <Keys t={t} />
+        <Labs t={t} lang={lang} />
+        <Cjpl t={t} />
+        <Accelerator t={t} />
+        <Instruments t={t} />
+      </>
+    )
+  }
+  {
+    page === 'results' && (
+      <>
+        <PageHead t={t} page={page} />
+        <Results t={t} />
+        <Impact t={t} />
+      </>
+    )
+  }
+  {
+    page === 'future' && (
+      <>
+        <PageHead t={t} page={page} />
+        <Upgrade t={t} />
+        <Grail t={t} />
+        <Plan t={t} />
+      </>
+    )
+  }
+  {
+    page === 'about' && (
+      <>
+        <PageHead t={t} page={page} />
+        <History t={t} />
+        <Team t={t} />
+      </>
+    )
+  }
+  {page !== 'home' && <NextChapter t={t} lang={lang} page={page} />}
+</Site>

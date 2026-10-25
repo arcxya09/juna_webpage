@@ -14,13 +14,12 @@ const zh = {
       'JUNA 在岩石覆盖 2400 米的中国锦屏地下实验室，用世界最强流的深地加速器，直接测量决定恒星演化和元素起源的关键核反应。',
   },
   nav: {
+    home: '首页',
     science: '科学',
-    underground: '深地',
-    platform: '平台',
-    history: '历程',
+    facility: '平台',
     results: '成果',
     future: '展望',
-    team: '团队',
+    about: '关于',
     switchLabel: 'EN',
     switchAria: 'Switch to English',
   },
@@ -44,7 +43,7 @@ const zh = {
       title: '核天体物理',
       body: '我们身体里的碳、氧、钙和铁，都来自恒星内部的核反应。恒星怎样演化，元素怎样合成，取决于这些反应进行得有多快。',
     },
-    underground: {
+    facility: {
       num: '02',
       label: '第二部分',
       title: '深地实验与 JUNA 平台',
@@ -61,6 +60,12 @@ const zh = {
       label: '第四部分',
       title: '第二阶段与展望',
       body: '2024 年 JUNA 迁入锦屏二期 A1 实验厅并完成升级，第二阶段聚焦“圣杯反应”，并把深地直接测量从氢燃烧拓展到氦燃烧。',
+    },
+    about: {
+      num: '05',
+      label: '第五部分',
+      title: '关于 JUNA',
+      body: '从 2013 年的一次研讨会，到在地下 2400 米出束。JUNA 由中国原子能科学研究院牵头，国内外多家高校和科研院所共同建设和运行。',
     },
   },
   stars: {
@@ -362,6 +367,30 @@ const zh = {
     supportTitle: '支持单位',
     support: '国家自然科学基金委员会、中国核工业集团有限公司、中国科学院、雅砻江流域水电开发有限公司、锦屏地下实验室、清华大学',
   },
+  home: {
+    intro: {
+      kicker: '为什么是 JUNA',
+      text: '恒星里的核反应极其稀少，在地面上会被宇宙线本底淹没。JUNA 走进锦屏山深处：2400 米岩石挡住宇宙线，世界最强流的深地加速器换来计数，过去只能靠外推的能区，如今可以直接测量。',
+    },
+    explore: { kicker: '探索', title: '五个篇章，读懂 JUNA' },
+    teasers: {
+      science: '恒星如何燃烧，元素从哪里来',
+      facility: '2400 米岩石之下的强流加速器',
+      results: '五项关键反应达到国际领先',
+      future: '向核天体物理的“圣杯”进发',
+      about: '建设历程与合作组',
+    },
+    highlights: { kicker: '代表性成果', title: '第一阶段的发现', more: '查看全部成果' },
+    join: { title: '欢迎提交实验提案，加入 JUNA 合作', link: '了解合作组' },
+  },
+  pageNav: { next: '下一篇', onPage: '本页内容', menu: '菜单', scroll: '向下滚动' },
+  sections: {
+    science: [['stars', '恒星与核物理'], ['gamow', '伽莫夫窗口'], ['needs', '精度需求']],
+    facility: [['keys', '低本底与强束流'], ['labs', '地下实验室'], ['cjpl', '锦屏实验室'], ['accelerator', '加速器'], ['instruments', '探测器与靶']],
+    results: [['findings', '主要成果'], ['summary', '成果汇总'], ['impact', '国际影响']],
+    future: [['upgrade', '平台升级'], ['grail', '圣杯反应'], ['plan', '实验计划']],
+    about: [['history', '建设历程'], ['team', '合作组']],
+  },
   footer: {
     org: '中国原子能科学研究院 核物理研究所',
     line: 'JUNA 合作组',
@@ -377,13 +406,12 @@ const en: typeof zh = {
       'Under 2,400 m of rock at the China Jinping Underground Laboratory, JUNA uses the most intense deep-underground accelerator in the world to directly measure the nuclear reactions behind stellar evolution and the origin of the elements.',
   },
   nav: {
+    home: 'Home',
     science: 'Science',
-    underground: 'Underground',
-    platform: 'Platform',
-    history: 'History',
+    facility: 'Facility',
     results: 'Results',
     future: 'Outlook',
-    team: 'Team',
+    about: 'About',
     switchLabel: '中文',
     switchAria: '切换到中文',
   },
@@ -407,7 +435,7 @@ const en: typeof zh = {
       title: 'Nuclear astrophysics',
       body: 'The carbon, oxygen, calcium and iron in our bodies were all made by nuclear reactions inside stars. How stars evolve and how elements form depends on how fast those reactions run.',
     },
-    underground: {
+    facility: {
       num: '02',
       label: 'Part two',
       title: 'Going underground: the JUNA platform',
@@ -424,6 +452,12 @@ const en: typeof zh = {
       label: 'Part four',
       title: 'Phase II and beyond',
       body: 'In 2024 JUNA moved into Hall A1 of CJPL-II and was upgraded. Phase II targets the “holy grail” reaction and aims to extend direct underground measurements from hydrogen burning to helium burning.',
+    },
+    about: {
+      num: '05',
+      label: 'Part five',
+      title: 'About JUNA',
+      body: 'From a 2013 workshop to a beam 2,400 m underground. JUNA is led by the China Institute of Atomic Energy and built and run with universities and institutes in China and abroad.',
     },
   },
   stars: {
@@ -724,6 +758,30 @@ const en: typeof zh = {
     ],
     supportTitle: 'Supported by',
     support: 'National Natural Science Foundation of China, China National Nuclear Corporation, Chinese Academy of Sciences, Yalong River Hydropower Development Company, China Jinping Underground Laboratory, Tsinghua University',
+  },
+  home: {
+    intro: {
+      kicker: 'Why JUNA',
+      text: 'Nuclear reactions inside stars are so rare that on the surface their signal drowns in cosmic-ray background. JUNA went deep into Jinping Mountain: 2,400 m of rock stops the cosmic rays, the most intense deep-underground accelerator supplies the counts, and energies once reached only by extrapolation can now be measured directly.',
+    },
+    explore: { kicker: 'Explore', title: 'JUNA in five chapters' },
+    teasers: {
+      science: 'How stars burn and where the elements come from',
+      facility: 'An intense accelerator under 2,400 m of rock',
+      results: 'Five key reactions at world-leading precision',
+      future: 'Toward the holy grail of nuclear astrophysics',
+      about: 'Milestones and the collaboration',
+    },
+    highlights: { kicker: 'Highlights', title: 'What Phase I found', more: 'All results' },
+    join: { title: 'Experimental proposals and new collaborators are welcome', link: 'Meet the collaboration' },
+  },
+  pageNav: { next: 'Next chapter', onPage: 'On this page', menu: 'Menu', scroll: 'Scroll' },
+  sections: {
+    science: [['stars', 'Stars & nuclei'], ['gamow', 'Gamow window'], ['needs', 'Precision needs']],
+    facility: [['keys', 'Two keys'], ['labs', 'Underground labs'], ['cjpl', 'CJPL'], ['accelerator', 'Accelerator'], ['instruments', 'Detectors & targets']],
+    results: [['findings', 'Key results'], ['summary', 'Summary'], ['impact', 'Impact']],
+    future: [['upgrade', 'Upgrade'], ['grail', 'The holy grail'], ['plan', 'Programme']],
+    about: [['history', 'Milestones'], ['team', 'Collaboration']],
   },
   footer: {
     org: 'Institute of Nuclear Physics, China Institute of Atomic Energy',

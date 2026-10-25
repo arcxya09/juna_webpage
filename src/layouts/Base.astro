@@ -6,14 +6,16 @@ import '../styles/global.css';
 import { getImage } from 'astro:assets';
 import type { Lang } from '../i18n/content';
 import { img } from '../lib/img';
+import { href, type PageKey } from '../lib/routes';
 
 interface Props {
   lang: Lang;
+  page: PageKey;
   title: string;
   description: string;
 }
 
-const { lang, title, description } = Astro.props;
+const { lang, page, title, description } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const htmlLang = lang === 'zh' ? 'zh-CN' : 'en';
 const og = await getImage({ src: img('hero-accelerator.jpg'), width: 1200, format: 'jpg' });
@@ -34,8 +36,8 @@ const ogUrl = new URL(og.src, Astro.site).href;
     <meta property="og:image" content={ogUrl} />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
-    <link rel="alternate" hreflang="zh-CN" href={`${base}/`} />
-    <link rel="alternate" hreflang="en" href={`${base}/en/`} />
+    <link rel="alternate" hreflang="zh-CN" href={href('zh', page)} />
+    <link rel="alternate" hreflang="en" href={href('en', page)} />
     <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body>

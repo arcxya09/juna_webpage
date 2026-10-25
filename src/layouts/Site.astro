@@ -1,0 +1,31 @@
+---
+// Shell shared by every page: nav, reading progress, footer and the motion scripts.
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { content, type Lang } from '../i18n/content';
+import type { PageKey } from '../lib/routes';
+
+interface Props {
+  lang: Lang;
+  page: PageKey;
+}
+
+const { lang, page } = Astro.props;
+const t = content[lang];
+const title = page === 'home' ? t.meta.title : `${t.chapters[page].title} · JUNA`;
+const description = page === 'home' ? t.meta.description : t.chapters[page].body;
+---
+
+<Base lang={lang} page={page} title={title} description={description}>
+  <div class="progress" data-progress aria-hidden="true"></div>
+  <Nav t={t} lang={lang} page={page} />
+  <main id="top">
+    <slot />
+  </main>
+  <Footer t={t} lang={lang} page={page} />
+  <script>
+    import '../scripts/particles';
+    import '../scripts/motion';
+  </script>
+</Base>

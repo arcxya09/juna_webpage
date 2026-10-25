@@ -1,19 +1,21 @@
 ---
 import { Image } from 'astro:assets';
-import type { Content } from '../i18n/content';
+import type { Content, Lang } from '../i18n/content';
 import { img, widths } from '../lib/img';
+import { href } from '../lib/routes';
 import T from './T.astro';
 
 interface Props {
   t: Content;
+  lang: Lang;
 }
 
-const { t } = Astro.props;
+const { t, lang } = Astro.props;
 const photo = img('hero-accelerator.jpg');
 const lines = t.hero.title.split('\n');
 ---
 
-<section class="hero" id="top">
+<section class="hero">
   <div class="hero__media" data-parallax="0.22">
     <Image
       class="hero__img"
@@ -40,8 +42,8 @@ const lines = t.hero.title.split('\n');
     </h1>
     <p class="hero__lead hero__in" style={`--i:${lines.length + 1}`}>{t.hero.lead}</p>
     <div class="hero__actions hero__in" style={`--i:${lines.length + 2}`}>
-      <a class="btn btn--solid" href="#science">{t.hero.cta}</a>
-      <a class="btn" href="#results">{t.hero.cta2}</a>
+      <a class="btn btn--solid" href={href(lang, 'science')}>{t.hero.cta}</a>
+      <a class="btn" href={href(lang, 'results')}>{t.hero.cta2}</a>
     </div>
   </div>
 

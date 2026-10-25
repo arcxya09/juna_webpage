@@ -11,7 +11,7 @@ interface Props {
 const { results: r } = Astro.props.t;
 ---
 
-<section class="section results">
+<section class="section results" id="findings">
   <div class="wrap">
     {
       r.stories.map((s, i) => (
@@ -101,7 +101,7 @@ const { results: r } = Astro.props.t;
   </div>
 </section>
 
-<section class="section section--deep summary">
+<section class="section section--deep summary" id="summary">
   <div class="wrap">
     <div class="head head--split">
       <div>
@@ -162,7 +162,7 @@ const { results: r } = Astro.props.t;
   }
   .story__sticky {
     position: sticky;
-    top: calc(var(--nav-h) + 40px);
+    top: calc(var(--nav-h) + 96px);
   }
   .story__i {
     font-family: var(--font-mono);

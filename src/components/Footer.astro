@@ -1,16 +1,16 @@
 ---
 import type { Content, Lang } from '../i18n/content';
+import { CHAPTERS, href, type PageKey } from '../lib/routes';
 
 interface Props {
   t: Content;
   lang: Lang;
+  page: PageKey;
 }
 
-const { t, lang } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const otherHref = lang === 'zh' ? `${base}/en/` : `${base}/`;
+const { t, lang, page } = Astro.props;
+const otherHref = href(lang === 'zh' ? 'en' : 'zh', page);
 const year = new Date().getFullYear();
-const links = ['science', 'underground', 'platform', 'history', 'results', 'future', 'team'] as const;
 ---
 
 <footer class="footer">
@@ -21,7 +21,7 @@ const links = ['science', 'underground', 'platform', 'history', 'results', 'futu
         <span>{t.footer.org}</span>
       </p>
       <nav class="footer__nav" aria-label="Footer">
-        {links.map((k) => <a href={`#${k}`}>{t.nav[k]}</a>)}
+        {CHAPTERS.map((k) => <a href={href(lang, k)}>{t.nav[k]}</a>)}
       </nav>
     </div>
     <div class="footer__bottom">
@@ -63,7 +63,7 @@ const links = ['science', 'underground', 'platform', 'history', 'results', 'futu
   }
   .footer__nav {
     display: grid;
-    grid-template-columns: repeat(4, auto);
+    grid-template-columns: repeat(5, auto);
     gap: 12px 40px;
     align-content: start;
   }
