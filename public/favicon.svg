@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#0a1220"/><circle cx="32" cy="32" r="19" fill="none" stroke="#c27c4e" stroke-width="3"/><circle cx="32" cy="32" r="5" fill="#e0a77a"/><path d="M6 46 L58 18" stroke="#e8ebf1" stroke-width="2" opacity=".6"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="38.3 -3.5 76.7 76.7" width="76.7" height="76.7" role="img">
+<title>JUNA</title>
+<defs><linearGradient id="juna-g" gradientUnits="userSpaceOnUse" x1="40.67" y1="37.64" x2="87.9" y2="12.52"><stop offset="0" stop-color="#027230"/><stop offset="0.0625" stop-color="#0f792e"/><stop offset="0.125" stop-color="#1d812d"/><stop offset="0.188" stop-color="#2a882b"/><stop offset="0.25" stop-color="#38902a"/><stop offset="0.312" stop-color="#459729"/><stop offset="0.375" stop-color="#539e27"/><stop offset="0.438" stop-color="#60a626"/><stop offset="0.5" stop-color="#6ead24"/><stop offset="0.617" stop-color="#77b220"/><stop offset="0.742" stop-color="#80b71a"/><stop offset="0.867" stop-color="#89bb15"/><stop offset="0.992" stop-color="#92c010"/><stop offset="1" stop-color="#93c010"/></linearGradient></defs>
+<path fill="url(#juna-g)" d="M44.4 44.65L67 44.65L78.45 24.82L78.14 24.82L67 5.52Z"/>
+<path fill="#009fe8" fill-rule="evenodd" d="M84.17 14.38L113 64.3L55.35 64.3L61.55 53.55L71.82 53.55L71.82 53.55L86.95 53.55L72.84 39.46L72.84 44.65L66.7 44.65Z"/>
+<path fill="#e50012" d="M74.64 51.75L40.3 51.75L43.36 46.46L74.64 46.46L74.64 43.82L82.58 51.75Z"/>
+<path fill="#f7b400" d="M99.12 12.39L100.57 5.36L102 12.39L109.03 13.83L102 15.27L100.57 22.29L99.12 15.27L92.1 13.83Z"/>
+</svg>

@@ -42,7 +42,6 @@ const { accelerator: a } = Astro.props.t;
         </tbody>
       </table>
     </div>
-    <p class="src" data-reveal>{a.table.note}</p>
   </div>
 </section>
 
@@ -72,6 +71,7 @@ const { accelerator: a } = Astro.props.t;
     border-bottom: 1px solid var(--line);
   }
   .acc__table tr.is-hl th {
+    padding-left: 16px;
     color: var(--copper-light);
   }
   .acc__table td {

@@ -102,9 +102,10 @@ const area = `${line(gam)} L${sx(xMax).toFixed(1)} ${sy(0)} L${sx(0)} ${sy(0)} Z
     white-space: nowrap;
   }
   .gamow__label {
+    flex: 1 1 14em;
     font-size: 14px;
     color: var(--text-faint);
-    max-width: 18em;
+    text-wrap: balance;
   }
   .gamow__chart {
     margin: 0;

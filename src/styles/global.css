@@ -215,15 +215,6 @@ html[lang='zh-CN'] .lead {
   color: var(--text-faint);
 }
 
-.src {
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  line-height: 1.6;
-  letter-spacing: 0.02em;
-  color: var(--text-faint);
-  margin: 24px 0 0;
-}
-
 .num {
   font-weight: 200;
   font-variant-numeric: tabular-nums;

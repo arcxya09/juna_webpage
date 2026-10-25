@@ -17,16 +17,17 @@ const links = ['science', 'underground', 'platform', 'history', 'results', 'futu
   <div class="wrap">
     <div class="footer__top">
       <div class="footer__brand">
-        <svg viewBox="0 0 64 64" width="40" height="40" aria-hidden="true">
-          <circle cx="32" cy="32" r="19" fill="none" stroke="currentColor" stroke-width="2"></circle>
-          <circle cx="32" cy="32" r="5" fill="var(--copper-light)"></circle>
-          <path d="M6 46 L58 18" stroke="currentColor" stroke-width="1.2" opacity=".6"></path>
-        </svg>
-        <div>
-          <strong>JUNA</strong>
+        <img
+          src={`${base}/brand/juna-banner-dark.svg`}
+          alt="JUNA 锦屏深地核天体物理实验 Jinping Underground Nuclear Astrophysics Experiment"
+          width="430"
+          height="60"
+          loading="lazy"
+        />
+        <p>
           <span>{t.footer.line}</span>
           <span>{t.footer.org}</span>
-        </div>
+        </p>
       </div>
       <nav class="footer__nav" aria-label="Footer">
         {links.map((k) => <a href={`#${k}`}>{t.nav[k]}</a>)}
@@ -61,23 +62,20 @@ const links = ['science', 'underground', 'platform', 'history', 'results', 'futu
   }
   .footer__brand {
     display: flex;
-    gap: 20px;
-    align-items: flex-start;
-    color: var(--text);
+    flex-direction: column;
+    gap: 28px;
+    max-width: 100%;
   }
-  .footer__brand div {
+  .footer__brand img {
+    width: 430px;
+    max-width: 100%;
+    height: auto;
+  }
+  .footer__brand p {
     display: flex;
     flex-direction: column;
     gap: 4px;
-  }
-  .footer__brand strong {
-    font-weight: 600;
-    letter-spacing: 0.32em;
-    font-size: 18px;
-    margin-bottom: 6px;
-  }
-  .footer__brand span {
-    color: var(--text-faint);
+    margin: 0;
   }
   .footer__nav {
     display: grid;

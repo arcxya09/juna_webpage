@@ -47,7 +47,6 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
     </div>
     <div class="labs__foot">
       <p class="labs__legend"><i></i>{copy.legend}</p>
-      <p class="src">{copy.source}</p>
     </div>
   </div>
 </section>
@@ -214,10 +213,6 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
     height: 14px;
     background: var(--copper);
   }
-  .labs__foot .src {
-    margin: 0;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     :global(.js) .lab__bar {
       transform: none;
