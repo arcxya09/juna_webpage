@@ -1,25 +1,24 @@
 ---
 import type { Content, Lang } from '../i18n/content';
+import { CHAPTERS, href, type PageKey } from '../lib/routes';
 
 interface Props {
   t: Content;
   lang: Lang;
+  page: PageKey;
 }
 
-const { t, lang } = Astro.props;
+const { t, lang, page } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const otherHref = lang === 'zh' ? `${base}/en/` : `${base}/`;
-const links = ['science', 'underground', 'platform', 'history', 'results', 'future', 'team'] as const;
-// The banner needs ~300px. Where the links leave no room for it (English
-// labels on small laptops, very narrow phones) fall back to the logo mark.
-const markMedia = lang === 'en' ? '(max-width: 340px), (min-width: 961px) and (max-width: 1240px)' : '(max-width: 340px)';
+const other: Lang = lang === 'zh' ? 'en' : 'zh';
+// The banner needs ~300px; on very narrow phones fall back to the logo mark.
 ---
 
 <header class="nav" data-nav>
   <div class="nav__inner">
-    <a class="brand" href="#top">
+    <a class="brand" href={href(lang, 'home')} aria-current={page === 'home' ? 'page' : undefined}>
       <picture>
-        <source media={markMedia} srcset={`${base}/brand/juna-logo-dark.svg`} width="108" height="60" />
+        <source media="(max-width: 340px)" srcset={`${base}/brand/juna-logo-dark.svg`} width="108" height="60" />
         <img
           src={`${base}/brand/juna-banner-dark.svg`}
           alt="JUNA 锦屏深地核天体物理实验 Jinping Underground Nuclear Astrophysics Experiment"
@@ -28,12 +27,24 @@ const markMedia = lang === 'en' ? '(max-width: 340px), (min-width: 961px) and (m
         />
       </picture>
     </a>
-    <nav class="nav__links" aria-label="Sections">
-      {links.map((k) => <a href={`#${k}`}>{t.nav[k]}</a>)}
+    <nav class="nav__links" id="site-menu" aria-label={t.pageNav.menu}>
+      {
+        CHAPTERS.map((k, i) => (
+          <a href={href(lang, k)} aria-current={page === k ? 'page' : undefined} style={`--i:${i}`}>
+            <span class="nav__num">{t.chapters[k].num}</span>
+            <span class="nav__label">{t.nav[k]}</span>
+          </a>
+        ))
+      }
+      <a class="nav__lang nav__lang--menu" href={href(other, page)} hreflang={other === 'en' ? 'en' : 'zh-CN'} style={`--i:${CHAPTERS.length}`}>
+        {t.nav.switchLabel}
+      </a>
     </nav>
     <div class="nav__tools">
-      <a class="nav__lang" href={otherHref} hreflang={lang === 'zh' ? 'en' : 'zh-CN'} aria-label={t.nav.switchAria}>{t.nav.switchLabel}</a>
-      <button class="nav__toggle" type="button" aria-label="Menu" aria-expanded="false" data-nav-toggle>
+      <a class="nav__lang" href={href(other, page)} hreflang={other === 'en' ? 'en' : 'zh-CN'} aria-label={t.nav.switchAria}>
+        {t.nav.switchLabel}
+      </a>
+      <button class="nav__toggle" type="button" aria-label={t.pageNav.menu} aria-controls="site-menu" aria-expanded="false" data-nav-toggle>
         <span></span><span></span>
       </button>
     </div>
@@ -46,16 +57,31 @@ const markMedia = lang === 'en' ? '(max-width: 340px), (min-width: 961px) and (m
     inset: 0 0 auto 0;
     z-index: 50;
     height: var(--nav-h);
-    transition: background 0.35s, border-color 0.35s, backdrop-filter 0.35s;
-    border-bottom: 1px solid transparent;
+    transition: transform 0.45s var(--ease);
+    view-transition-name: site-nav;
   }
-  .nav.is-scrolled {
-    background: rgba(8, 16, 28, 0.8);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom-color: var(--line);
+  /* The frosted bar lives on a pseudo-element: a backdrop-filter on the nav
+     itself would trap the full-screen mobile menu inside the bar. */
+  .nav::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 16, 28, 0.82);
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    border-bottom: 1px solid var(--line);
+    opacity: 0;
+    transition: opacity 0.35s;
+  }
+  .nav.is-scrolled::before {
+    opacity: 1;
+  }
+  /* Tuck the bar away while reading down; bring it back on any upward scroll. */
+  .nav.is-tucked:not(.is-open) {
+    transform: translateY(-100%);
   }
   .nav__inner {
+    position: relative;
     height: 100%;
     max-width: 1440px;
     margin: 0 auto;
@@ -68,6 +94,8 @@ const markMedia = lang === 'en' ? '(max-width: 340px), (min-width: 961px) and (m
     display: flex;
     align-items: center;
     flex: none;
+    position: relative;
+    z-index: 2;
   }
   .brand img {
     display: block;
@@ -76,10 +104,10 @@ const markMedia = lang === 'en' ? '(max-width: 340px), (min-width: 961px) and (m
   }
   .nav__links {
     display: flex;
-    gap: 28px;
+    gap: 34px;
     margin-left: auto;
     font-size: 13px;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-dim);
   }
@@ -88,28 +116,37 @@ const markMedia = lang === 'en' ? '(max-width: 340px), (min-width: 961px) and (m
     padding: 6px 0;
     transition: color 0.2s;
   }
+  .nav__num,
+  .nav__lang--menu {
+    display: none;
+  }
   .nav__links a::after {
     content: '';
     position: absolute;
     left: 0;
-    right: 100%;
+    right: 0;
     bottom: 0;
     height: 1px;
     background: var(--copper);
-    transition: right 0.3s;
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 0.45s var(--ease);
   }
   .nav__links a:hover,
-  .nav__links a.is-active {
+  .nav__links a[aria-current='page'] {
     color: var(--text);
   }
   .nav__links a:hover::after,
-  .nav__links a.is-active::after {
-    right: 0;
+  .nav__links a[aria-current='page']::after {
+    transform: scaleX(1);
+    transform-origin: left center;
   }
   .nav__tools {
     display: flex;
     align-items: center;
     gap: 16px;
+    position: relative;
+    z-index: 2;
   }
   .nav__lang {
     font-family: var(--font-mono);
@@ -117,7 +154,7 @@ const markMedia = lang === 'en' ? '(max-width: 340px), (min-width: 961px) and (m
     letter-spacing: 0.1em;
     padding: 6px 12px;
     border: 1px solid var(--line-strong);
-    transition: border-color 0.2s, color 0.2s;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
   }
   .nav__lang:hover {
     border-color: var(--copper);
@@ -139,7 +176,7 @@ const markMedia = lang === 'en' ? '(max-width: 340px), (min-width: 961px) and (m
     right: 8px;
     height: 1.5px;
     background: var(--text);
-    transition: transform 0.3s, top 0.3s;
+    transition: transform 0.35s var(--ease), top 0.35s var(--ease);
   }
   .nav__toggle span:first-child {
     top: 13px;
@@ -156,6 +193,7 @@ const markMedia = lang === 'en' ? '(max-width: 340px), (min-width: 961px) and (m
     transform: rotate(-45deg);
   }
 
+  /* Small screens: the links become a full-screen menu. */
   @media (max-width: 960px) {
     .nav__inner {
       gap: 16px;
@@ -165,32 +203,72 @@ const markMedia = lang === 'en' ? '(max-width: 340px), (min-width: 961px) and (m
     }
     .nav__links {
       position: fixed;
-      inset: var(--nav-h) 0 auto 0;
+      inset: 0;
+      z-index: 1;
       flex-direction: column;
+      justify-content: center;
       gap: 0;
-      padding: 8px var(--gutter) 24px;
-      background: rgba(10, 18, 32, 0.97);
-      border-bottom: 1px solid var(--line);
-      font-size: 15px;
-      transform: translateY(-8px);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s, transform 0.25s;
+      margin: 0;
+      padding: calc(var(--nav-h) + 24px) var(--gutter) 48px;
+      background:
+        radial-gradient(120% 70% at 100% 0%, rgba(194, 124, 78, 0.14), transparent 60%),
+        var(--ink-950);
+      font-size: clamp(30px, 8vw, 44px);
+      letter-spacing: 0.02em;
+      text-transform: none;
+      color: var(--text);
+      clip-path: inset(0 0 100% 0);
+      visibility: hidden;
+      transition:
+        clip-path 0.6s cubic-bezier(0.7, 0, 0.2, 1),
+        visibility 0s linear 0.6s;
+    }
+    .nav.is-open .nav__links {
+      clip-path: inset(0 0 0 0);
+      visibility: visible;
+      transition: clip-path 0.6s cubic-bezier(0.7, 0, 0.2, 1);
     }
     .nav__links a {
+      display: flex;
+      align-items: baseline;
+      gap: 18px;
       padding: 14px 0;
       border-bottom: 1px solid var(--line);
+      opacity: 0;
+      transform: translateY(24px);
+      transition:
+        opacity 0.5s var(--ease),
+        transform 0.6s var(--ease),
+        color 0.2s;
+    }
+    .nav.is-open .nav__links a {
+      opacity: 1;
+      transform: none;
+      transition-delay: calc(0.18s + var(--i) * 0.05s);
     }
     .nav__links a::after {
       display: none;
     }
-    .nav.is-open .nav__links {
-      opacity: 1;
-      transform: none;
-      pointer-events: auto;
+    .nav__links a[aria-current='page'] .nav__label {
+      color: var(--copper-light);
     }
-    .nav.is-open {
-      background: rgba(10, 18, 32, 0.97);
+    .nav__num {
+      display: inline;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      color: var(--copper);
+    }
+    .nav__lang--menu {
+      display: inline-flex;
+      align-self: flex-start;
+      margin-top: 32px;
+      border: 1px solid var(--line-strong);
+      padding: 10px 18px !important;
+      font-size: 14px;
+    }
+    .nav.is-open::before {
+      opacity: 0;
     }
     .nav__tools {
       margin-left: auto;
@@ -202,6 +280,12 @@ const markMedia = lang === 'en' ? '(max-width: 340px), (min-width: 961px) and (m
   @media (max-width: 380px) {
     .brand img {
       height: 28px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nav__links,
+    .nav__links a {
+      transition: none !important;
     }
   }
 </style>

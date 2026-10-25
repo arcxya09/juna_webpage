@@ -1,0 +1,55 @@
+---
+// Home: one statement of purpose that lights up as it scrolls past.
+import type { Content } from '../i18n/content';
+
+interface Props {
+  t: Content;
+}
+
+const { intro } = Astro.props.t.home;
+---
+
+<section class="section intro">
+  <div class="wrap intro__inner">
+    <p class="kicker" data-reveal>{intro.kicker}</p>
+    <p class="intro__text" data-scrub>{intro.text}</p>
+  </div>
+</section>
+
+<style>
+  .intro {
+    padding-top: clamp(96px, 14vw, 200px);
+    padding-bottom: clamp(96px, 14vw, 200px);
+  }
+  .intro__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+    gap: clamp(24px, 4vw, 64px);
+  }
+  .intro .kicker {
+    padding-top: 0.9em;
+    align-self: start;
+  }
+  .intro__text {
+    margin: 0;
+    font-size: clamp(26px, 3.3vw, 48px);
+    line-height: 1.42;
+    font-weight: 300;
+    letter-spacing: -0.012em;
+    text-wrap: pretty;
+  }
+  :global(html[lang='zh-CN']) .intro__text {
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+  .intro__text :global(.sw) {
+    opacity: var(--o, 1);
+    transition: opacity 0.25s linear;
+  }
+  @media (max-width: 860px) {
+    .intro__inner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+    }
+  }
+</style>

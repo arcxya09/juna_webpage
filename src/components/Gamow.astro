@@ -29,7 +29,7 @@ const line = (f: (e: number) => number) => es.map((e, i) => `${i ? 'L' : 'M'}${s
 const area = `${line(gam)} L${sx(xMax).toFixed(1)} ${sy(0)} L${sx(0)} ${sy(0)} Z`;
 ---
 
-<section class="section section--rule gamow">
+<section class="section section--rule gamow" id="gamow">
   <div class="wrap gamow__grid">
     <div class="gamow__text">
       <p class="kicker" data-reveal>{gamow.kicker}</p>
