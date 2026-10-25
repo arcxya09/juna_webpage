@@ -29,14 +29,6 @@ const lines = t.hero.title.split('\n');
   <div class="hero__shade" aria-hidden="true"></div>
 
   <div class="wrap hero__content">
-    <p class="hero__banner hero__in" style="--i:0">
-      <img
-        src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/brand/juna-banner-dark.svg`}
-        alt={t.hero.kicker}
-        width="480"
-        height="67"
-      />
-    </p>
     <h1 class="hero__title">
       {
         lines.map((line, i) => (
@@ -137,16 +129,6 @@ const lines = t.hero.title.split('\n');
     z-index: 2;
     padding-top: calc(var(--nav-h) + 48px);
     padding-bottom: clamp(40px, 7vh, 88px);
-  }
-  .hero__banner {
-    margin: 0 0 clamp(28px, 4vh, 44px);
-  }
-  .hero__banner img {
-    width: auto;
-    height: clamp(40px, 4.8vw, 68px);
-    max-width: 100%;
-    object-fit: contain;
-    object-position: left center;
   }
   .hero__title {
     margin: 0 0 32px;
