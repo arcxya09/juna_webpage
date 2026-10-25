@@ -14,13 +14,8 @@ const links = ['science', 'underground', 'platform', 'history', 'results', 'futu
 
 <header class="nav" data-nav>
   <div class="nav__inner">
-    <a class="brand" href="#top" aria-label="JUNA">
-      <svg viewBox="0 0 64 64" width="28" height="28" aria-hidden="true">
-        <circle cx="32" cy="32" r="19" fill="none" stroke="currentColor" stroke-width="2.5"></circle>
-        <circle cx="32" cy="32" r="5" fill="var(--copper-light)"></circle>
-        <path d="M6 46 L58 18" stroke="currentColor" stroke-width="1.5" opacity=".6"></path>
-      </svg>
-      <span class="brand__name">JUNA</span>
+    <a class="brand" href="#top">
+      <img src={`${base}/brand/juna-logo-dark.svg`} alt="JUNA" width="72" height="40" />
     </a>
     <nav class="nav__links" aria-label="Sections">
       {links.map((k) => <a href={`#${k}`}>{t.nav[k]}</a>)}
@@ -61,12 +56,11 @@ const links = ['science', 'underground', 'platform', 'history', 'results', 'futu
   .brand {
     display: flex;
     align-items: center;
-    gap: 12px;
+    flex: none;
   }
-  .brand__name {
-    font-weight: 600;
-    letter-spacing: 0.32em;
-    font-size: 15px;
+  .brand img {
+    width: auto;
+    height: 40px;
   }
   .nav__links {
     display: flex;

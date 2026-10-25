@@ -25,7 +25,7 @@ const zh = {
     switchAria: 'Switch to English',
   },
   hero: {
-    kicker: 'Jinping Underground Nuclear Astrophysics',
+    kicker: 'JUNA 锦屏深地核天体物理实验 Jinping Underground Nuclear Astrophysics Experiment',
     title: '在地下 2400 米\n测量恒星的核火',
     lead: '锦屏深地核天体物理实验（JUNA）把强流加速器搬进世界最深的地下实验室，在恒星真实燃烧的能区直接测量驱动恒星演化、合成宇宙元素的关键核反应。',
     cta: '开始探索',
@@ -106,7 +106,6 @@ const zh = {
       { problem: '银河系 ²⁶Al 来源', reaction: '²⁵Mg(p,γ)²⁶Al', now: '20%', nowNote: '92 keV 共振', need: '5%', needNote: '50–300 keV' },
       { problem: '氟丰度', reaction: '¹⁹F(p,α)¹⁶O', now: '80%', nowNote: '最低 189 keV', need: '5%', needNote: '50–250 keV' },
     ],
-    source: 'W. P. Liu et al., Sci. China-Phys. Mech. Astron. 59, 642001 (2016)',
   },
   keys: {
     kicker: '为什么到地下',
@@ -132,7 +131,6 @@ const zh = {
     body: '世界上主要的地下实验室大多用于暗物质和中微子研究，设有核天体物理加速器的只有四家：德国浅地下的 Felsenkeller、意大利 LNGS 的 LUNA、美国 SURF 的 CASPAR，以及中国 CJPL 的 JUNA。',
     legend: '设有地下核天体物理加速器',
     depthLabel: '岩石覆盖深度',
-    source: '据原报告“世界上重要的地下实验室比较图”',
   },
   cjpl: {
     kicker: '中国锦屏地下实验室',
@@ -157,12 +155,11 @@ const zh = {
     table: {
       head: ['实验室', '深度 (m)', 'μ 子通量 (cm⁻²s⁻¹)', 'H⁺ 能量 (keV)', 'He²⁺ 能量', 'H⁺ 流强 (emA)', '能量稳定度'],
       rows: [
-        ['LUNA', '1400', '2×10⁻⁸', '50–400', '3.5 MV*', '0.3–1', '0.05%'],
-        ['CASPAR', '1500', '4×10⁻⁹', '100–1000', '1 MV*', '0.1', '0.05%'],
-        ['Felsenkeller', '45', '~10⁻⁷', '5 MV*', '—', '0.03', '—'],
+        ['LUNA', '1400', '2×10⁻⁸', '50–400', '3.5 MV', '0.3–1', '0.05%'],
+        ['CASPAR', '1500', '4×10⁻⁹', '100–1000', '1 MV', '0.1', '0.05%'],
+        ['Felsenkeller', '45', '~10⁻⁷', '5 MV', '—', '0.03', '—'],
         ['JUNA', '2400', '2×10⁻¹⁰', '50–400', '100–800 keV', '2–10', '0.04%'],
       ],
-      note: '* 端电压。来源：W. P. Liu et al., Sci. China-Phys. Mech. Astron. 59, 642001 (2016)；JUNA 2022',
     },
   },
   instruments: {
@@ -182,7 +179,6 @@ const zh = {
         points: ['¹⁹F 注入靶、¹²C 沉积靶、¹³C 厚靶、²⁵Mg 多层膜靶', '可耐受数百库仑束流', '耐受剂量比以往提高 3–10 倍'],
       },
     ],
-    source: 'Y. T. Li et al., Nucl. Sci. Tech. 33, 41 (2022)',
   },
   history: {
     kicker: '建设历程',
@@ -201,7 +197,6 @@ const zh = {
       { date: '2024.10', title: '迁入锦屏二期 A1 厅，升级调试', photo: 'm2024' },
       { date: '2025.05', title: '加速器具备出束条件' },
     ],
-    funding: '国家自然科学基金重大项目（No. 11490560）支持',
   },
   results: {
     stories: [
@@ -273,7 +268,6 @@ const zh = {
         { reaction: '¹⁹F(p,γ)²⁰Ne', meaning: 'CNO 循环突破', metrics: [['最低能量', '300 keV', '200 keV']], venue: 'Nature 610, 656 (2022)，News & Views' },
       ],
       note: '与以往实验相比，束流强度、探测效率、靶耐受剂量、灵敏度和能区覆盖都有大幅提升。',
-      source: 'W. P. Liu et al., Annu. Rev. Nucl. Part. Sci. 75, 271 (2025)',
     },
   },
   upgrade: {
@@ -295,13 +289,16 @@ const zh = {
       { value: '60%', label: '目前不确定度，模型要求约 10%' },
     ],
     chartTitle: '七十年来直接测量达到的最低能量',
-    chartNote: '实心点为历次最低能量纪录（质心系）。几十年里各实验室做了二十多次直接测量，最低能量一直停在 900 keV 左右。',
+    chartNote: '实心点为历次最低能量纪录，空心圈为其他直接测量（质心系能量，3 MeV 以上未画）。几十年里各实验室做了二十多次直接测量，最低能量一直停在 900 keV 左右。',
+    chartAxis: '直接测量的最低能量（keV）',
+    chartBand: ['伽莫夫窗口', '约 220–380 keV'],
+    chartApprox: '约 ',
+    chartJuna: '向伽莫夫窗口推进',
     juna: 'JUNA 第二轮实验改用高纯 ¹²C 金刚石靶和扩大的 BGO 阵列，信噪比显著提升，已取得重要进展。结果正在分析，以正式发表为准。',
     junaPrelim: 'JUNA 第一轮把最低能量推进到 552.5 keV，2026 年第二轮推进到 520 keV（初步结果）。',
     gw: {
       title: '引力波与黑洞质量间隙',
       body: '对不稳定性理论预言，黑洞质量分布中存在一个“间隙”，其下边界强烈依赖 ¹²C(α,γ)¹⁶O 的反应率。随着引力波探测到的双黑洞事件越来越多，实验室测量与引力波观测可以相互检验。',
-      source: 'R. Farmer et al., ApJL 902, L36 (2020)；Y. P. Shen et al., ApJ 945, 41 (2023)',
     },
   },
   plan: {
@@ -340,7 +337,6 @@ const zh = {
       { value: '800', unit: 'kV', label: '高压，He²⁺ 最高 1.6 MeV' },
       { value: '2.5', unit: 'ns', label: '脉冲束' },
     ],
-    specsNote: '指标取自 2026 年国家重大科研仪器研制项目申请，项目评审中。',
   },
   impact: {
     kicker: '技术辐射与国际影响',
@@ -369,7 +365,7 @@ const zh = {
   },
   footer: {
     org: '中国原子能科学研究院 核物理研究所',
-    line: '锦屏深地核天体物理实验（JUNA）合作组',
+    line: 'JUNA 合作组',
     note: '内容依据 JUNA 合作组公开报告与已发表论文整理。',
     top: '回到顶部',
   },
@@ -393,7 +389,7 @@ const en: typeof zh = {
     switchAria: '切换到中文',
   },
   hero: {
-    kicker: 'Jinping Underground Nuclear Astrophysics',
+    kicker: 'JUNA 锦屏深地核天体物理实验 Jinping Underground Nuclear Astrophysics Experiment',
     title: '2,400 m underground,\nmeasuring the fire of stars',
     lead: 'The Jinping Underground Nuclear Astrophysics experiment (JUNA) brought a high-intensity accelerator into the deepest underground laboratory on Earth to measure, at the energies where stars actually burn, the nuclear reactions that drive stellar evolution and forge the elements.',
     cta: 'Start exploring',
@@ -474,7 +470,6 @@ const en: typeof zh = {
       { problem: 'Galactic ²⁶Al', reaction: '²⁵Mg(p,γ)²⁶Al', now: '20%', nowNote: '92 keV resonance', need: '5%', needNote: '50–300 keV' },
       { problem: 'Fluorine abundance', reaction: '¹⁹F(p,α)¹⁶O', now: '80%', nowNote: 'down to 189 keV', need: '5%', needNote: '50–250 keV' },
     ],
-    source: 'W. P. Liu et al., Sci. China-Phys. Mech. Astron. 59, 642001 (2016)',
   },
   keys: {
     kicker: 'Why underground',
@@ -500,7 +495,6 @@ const en: typeof zh = {
     body: 'Most major underground laboratories serve dark-matter and neutrino research. Only four host a nuclear astrophysics accelerator: the shallow Felsenkeller in Germany, LUNA at LNGS in Italy, CASPAR at SURF in the USA, and JUNA at CJPL in China.',
     legend: 'Hosts an underground nuclear astrophysics accelerator',
     depthLabel: 'Rock overburden',
-    source: 'Depths from the comparison chart in the original report',
   },
   cjpl: {
     kicker: 'China Jinping Underground Laboratory',
@@ -525,12 +519,11 @@ const en: typeof zh = {
     table: {
       head: ['Laboratory', 'Depth (m)', 'Muon flux (cm⁻²s⁻¹)', 'H⁺ energy (keV)', 'He²⁺ energy', 'H⁺ current (emA)', 'Energy stability'],
       rows: [
-        ['LUNA', '1400', '2×10⁻⁸', '50–400', '3.5 MV*', '0.3–1', '0.05%'],
-        ['CASPAR', '1500', '4×10⁻⁹', '100–1000', '1 MV*', '0.1', '0.05%'],
-        ['Felsenkeller', '45', '~10⁻⁷', '5 MV*', '—', '0.03', '—'],
+        ['LUNA', '1400', '2×10⁻⁸', '50–400', '3.5 MV', '0.3–1', '0.05%'],
+        ['CASPAR', '1500', '4×10⁻⁹', '100–1000', '1 MV', '0.1', '0.05%'],
+        ['Felsenkeller', '45', '~10⁻⁷', '5 MV', '—', '0.03', '—'],
         ['JUNA', '2400', '2×10⁻¹⁰', '50–400', '100–800 keV', '2–10', '0.04%'],
       ],
-      note: '* Terminal voltage. Sources: W. P. Liu et al., Sci. China-Phys. Mech. Astron. 59, 642001 (2016); JUNA 2022',
     },
   },
   instruments: {
@@ -550,7 +543,6 @@ const en: typeof zh = {
         points: ['¹⁹F-implanted, ¹²C-deposited, thick ¹³C and multilayer ²⁵Mg targets', 'Withstand hundreds of coulombs of beam', '3–10 times the dose tolerance of earlier targets'],
       },
     ],
-    source: 'Y. T. Li et al., Nucl. Sci. Tech. 33, 41 (2022)',
   },
   history: {
     kicker: 'Milestones',
@@ -569,7 +561,6 @@ const en: typeof zh = {
       { date: '2024.10', title: 'Moved into Hall A1 of CJPL-II for upgrade', photo: 'm2024' },
       { date: '2025.05', title: 'Accelerator ready for beam' },
     ],
-    funding: 'Supported by the National Natural Science Foundation of China (No. 11490560)',
   },
   results: {
     stories: [
@@ -641,7 +632,6 @@ const en: typeof zh = {
         { reaction: '¹⁹F(p,γ)²⁰Ne', meaning: 'CNO breakout', metrics: [['Lowest energy', '300 keV', '200 keV']], venue: 'Nature 610, 656 (2022), News & Views' },
       ],
       note: 'Beam intensity, detection efficiency, target dose tolerance, sensitivity and energy coverage all improved substantially over earlier experiments.',
-      source: 'W. P. Liu et al., Annu. Rev. Nucl. Part. Sci. 75, 271 (2025)',
     },
   },
   upgrade: {
@@ -663,13 +653,16 @@ const en: typeof zh = {
       { value: '60%', label: 'Present uncertainty; models need ~10%' },
     ],
     chartTitle: 'Seventy years of the lowest energy reached by direct measurement',
-    chartNote: 'Filled points mark successive records (centre-of-mass energy). Over decades, more than twenty direct measurements stalled around 900 keV.',
+    chartNote: 'Filled points mark successive records; open circles are other direct measurements (centre-of-mass energy, none above 3 MeV shown). Over decades, more than twenty direct measurements stalled around 900 keV.',
+    chartAxis: 'Lowest energy reached (keV)',
+    chartBand: ['Gamow window', '~220–380 keV'],
+    chartApprox: '~',
+    chartJuna: 'pushing toward the Gamow window',
     juna: 'JUNA’s second campaign switched to a high-purity ¹²C diamond target and an enlarged BGO array, greatly improving the signal-to-noise ratio, and has made important progress. Results are under analysis; the published paper will be authoritative.',
     junaPrelim: 'JUNA’s first campaign pushed the lowest energy to 552.5 keV, and the 2026 second campaign to 520 keV (preliminary).',
     gw: {
       title: 'Gravitational waves and the black-hole mass gap',
       body: 'Pair-instability theory predicts a gap in the black-hole mass distribution whose lower edge depends strongly on the ¹²C(α,γ)¹⁶O rate. As gravitational-wave detectors catch more binary black-hole mergers, laboratory measurements and gravitational-wave observations can test each other.',
-      source: 'R. Farmer et al., ApJL 902, L36 (2020); Y. P. Shen et al., ApJ 945, 41 (2023)',
     },
   },
   plan: {
@@ -708,7 +701,6 @@ const en: typeof zh = {
       { value: '800', unit: 'kV', label: 'High voltage; He²⁺ up to 1.6 MeV' },
       { value: '2.5', unit: 'ns', label: 'Pulsed beam' },
     ],
-    specsNote: 'Specifications from the 2026 major scientific instrument proposal, currently under review.',
   },
   impact: {
     kicker: 'Impact',
@@ -737,7 +729,7 @@ const en: typeof zh = {
   },
   footer: {
     org: 'Institute of Nuclear Physics, China Institute of Atomic Energy',
-    line: 'Jinping Underground Nuclear Astrophysics (JUNA) collaboration',
+    line: 'The JUNA Collaboration',
     note: 'Content compiled from the collaboration’s public talks and published papers.',
     top: 'Back to top',
   },

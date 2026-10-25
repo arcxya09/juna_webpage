@@ -37,9 +37,11 @@ const { history } = Astro.props.t;
           return (
             <li class:list={['tl__item', photo && 'has-photo', it.highlight && 'is-hl']} data-reveal style={`--d:${Math.min(i, 5) * 0.06}s`}>
               <span class="tl__dot" aria-hidden="true" />
-              <time class="tl__date">{it.date}</time>
-              <h3 class="tl__title">{it.title}</h3>
-              {it.note && <p class="tl__note">{it.note}</p>}
+              <div class="tl__text">
+                <time class="tl__date">{it.date}</time>
+                <h3 class="tl__title">{it.title}</h3>
+                {it.note && <p class="tl__note">{it.note}</p>}
+              </div>
               {photo && (
                 <div class="tl__media">
                   <Image src={photo} alt={`${it.date} ${it.title}`} widths={widths(photo, [400, 700])} sizes="340px" loading="lazy" />
@@ -54,7 +56,6 @@ const { history } = Astro.props.t;
 
   <div class="wrap">
     <div class="tl__bar" aria-hidden="true"><i data-tl-progress></i></div>
-    <p class="src">{history.funding}</p>
   </div>
 </section>
 
@@ -134,6 +135,8 @@ const { history } = Astro.props.t;
     width: 230px;
     padding: 40px 32px 0 0;
     scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
   }
   .tl__item.has-photo {
     width: 340px;
@@ -183,8 +186,13 @@ const { history } = Astro.props.t;
     font-size: 13.5px;
     color: var(--text-faint);
   }
+  /* Items stretch to the tallest one; pushing photos to the bottom keeps
+     them on one line even when a date carries an extra note. */
+  .tl__text {
+    padding-bottom: 20px;
+  }
   .tl__media {
-    margin-top: 20px;
+    margin-top: auto;
     aspect-ratio: 4 / 3;
     overflow: hidden;
     background: var(--ink-800);
