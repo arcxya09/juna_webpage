@@ -16,19 +16,10 @@ const links = ['science', 'underground', 'platform', 'history', 'results', 'futu
 <footer class="footer">
   <div class="wrap">
     <div class="footer__top">
-      <div class="footer__brand">
-        <img
-          src={`${base}/brand/juna-banner-dark.svg`}
-          alt="JUNA 锦屏深地核天体物理实验 Jinping Underground Nuclear Astrophysics Experiment"
-          width="430"
-          height="60"
-          loading="lazy"
-        />
-        <p>
-          <span>{t.footer.line}</span>
-          <span>{t.footer.org}</span>
-        </p>
-      </div>
+      <p class="footer__brand">
+        <span>{t.footer.line}</span>
+        <span>{t.footer.org}</span>
+      </p>
       <nav class="footer__nav" aria-label="Footer">
         {links.map((k) => <a href={`#${k}`}>{t.nav[k]}</a>)}
       </nav>
@@ -63,19 +54,12 @@ const links = ['science', 'underground', 'platform', 'history', 'results', 'futu
   .footer__brand {
     display: flex;
     flex-direction: column;
-    gap: 28px;
-    max-width: 100%;
-  }
-  .footer__brand img {
-    width: 430px;
-    max-width: 100%;
-    height: auto;
-  }
-  .footer__brand p {
-    display: flex;
-    flex-direction: column;
     gap: 4px;
     margin: 0;
+  }
+  .footer__brand span:first-child {
+    color: var(--text);
+    font-size: 15px;
   }
   .footer__nav {
     display: grid;
