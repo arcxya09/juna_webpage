@@ -22,6 +22,8 @@ const es = Array.from({ length: N + 1 }, (_, i) => (i / N) * xMax);
 const peakMax = Math.max(...es.map((e) => mb(e) * tun(e)));
 const gam = (e: number) => ((mb(e) * tun(e)) / peakMax) * 0.58;
 const e0 = Math.pow(b / 2, 2 / 3);
+// Energy at which the tunnelling curve reaches v, to keep its label clear of the line.
+const tunAt = (v: number) => Math.pow(b / (b / Math.sqrt(xMax) - Math.log(v)), 2);
 
 const sx = (e: number) => pad.l + (e / xMax) * (W - pad.l - pad.r);
 const sy = (v: number) => H - pad.b - v * (H - pad.t - pad.b);
@@ -68,7 +70,7 @@ const area = `${line(gam)} L${sx(xMax).toFixed(1)} ${sy(0)} L${sx(0)} ${sy(0)} Z
         <path class="curve curve--peak draw" d={line(gam)} pathLength="1"></path>
 
         <text class="t t--mb" x={sx(0.55)} y={sy(0.62)}>{gamow.chart.mb}</text>
-        <text class="t t--tun" x={sx(xMax) - 4} y={sy(0.9)} text-anchor="end">{gamow.chart.tunnel}</text>
+        <text class="t t--tun" x={sx(tunAt(0.9)) - 14} y={sy(0.9)} text-anchor="end">{gamow.chart.tunnel}</text>
         <text class="t t--peak" x={sx(e0)} y={sy(0.72) - 12} text-anchor="middle">{gamow.chart.peak}</text>
         <text class="t t--axis" x={W - pad.r} y={H - 16} text-anchor="end">{gamow.chart.energy} →</text>
         <text class="t t--axis" x={pad.l} y={H - 16}>0</text>
@@ -95,7 +97,7 @@ const area = `${line(gam)} L${sx(xMax).toFixed(1)} ${sy(0)} L${sx(0)} ${sy(0)} Z
     flex-wrap: wrap;
   }
   .gamow__value {
-    font-size: clamp(2.125rem, 3.6vw, 3rem);
+    font-size: clamp(2.125rem, 3vw, 2.5rem);
     font-weight: 200;
     letter-spacing: -0.02em;
     color: var(--copper-light);
