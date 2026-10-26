@@ -17,7 +17,6 @@
 
   --font-sans: 'Inter Variable', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC',
     'Noto Sans CJK SC', 'Source Han Sans SC', system-ui, -apple-system, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --gutter: clamp(1rem, 4vw, 4rem);
   --max: max(82.5rem, min(76vw, 120rem));
@@ -76,6 +75,18 @@ img {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Form controls default to the system font; keep them on the site's sans. */
+button {
+  font-family: inherit;
+}
+
+/* No italics: synthetic oblique Chinese reads poorly. */
+em,
+i,
+cite {
+  font-style: normal;
 }
 
 p {
@@ -150,7 +161,6 @@ sub {
 /* ---------- Type ---------- */
 
 .kicker {
-  font-family: var(--font-mono);
   font-size: 0.8125rem;
   line-height: 1.4;
   letter-spacing: 0.18em;
@@ -219,7 +229,6 @@ html[lang='zh-CN'] .lead {
 }
 
 .label {
-  font-family: var(--font-mono);
   font-size: 0.7812rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -305,7 +314,6 @@ html[lang='zh-CN'] .lead {
 
 .table th {
   text-align: left;
-  font-family: var(--font-mono);
   font-size: 0.8125rem;
   font-weight: 400;
   letter-spacing: 0.06em;
