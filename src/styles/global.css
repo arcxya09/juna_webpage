@@ -150,7 +150,7 @@ sub {
 
 .kicker {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   line-height: 1.4;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -219,7 +219,7 @@ html[lang='zh-CN'] .lead {
 
 .label {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: 0.7812rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-faint);
@@ -240,7 +240,7 @@ html[lang='zh-CN'] .lead {
   gap: 0.875rem;
   padding: 0.9375rem 1.625rem;
   border: 1px solid var(--line-strong);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -305,7 +305,7 @@ html[lang='zh-CN'] .lead {
 .table th {
   text-align: left;
   font-family: var(--font-mono);
-  font-size: 0.7188rem;
+  font-size: 0.8125rem;
   font-weight: 400;
   letter-spacing: 0.06em;
   color: var(--text-faint);

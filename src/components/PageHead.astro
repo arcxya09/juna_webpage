@@ -110,11 +110,15 @@ const sections = t.sections[page];
     top: calc(var(--nav-h) + 4vh);
     font-size: clamp(10rem, 28vw, 27.5rem);
     line-height: 0.8;
-    font-weight: 100;
+    font-weight: 200;
     letter-spacing: -0.06em;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(227, 171, 128, 0.55);
     font-variant-numeric: tabular-nums;
+    /* A filled gradient rather than a hairline outline: thin text strokes
+       break up into jagged steps on standard-density screens. */
+    color: transparent;
+    background: linear-gradient(180deg, rgba(227, 171, 128, 0.38), rgba(227, 171, 128, 0.03) 92%);
+    -webkit-background-clip: text;
+    background-clip: text;
     user-select: none;
     pointer-events: none;
   }
@@ -182,7 +186,7 @@ const sections = t.sections[page];
     align-items: center;
     gap: 0.875rem;
     font-family: var(--font-mono);
-    font-size: 0.6875rem;
+    font-size: 0.7812rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--text-faint);
@@ -258,13 +262,13 @@ const sections = t.sections[page];
     display: flex;
     align-items: baseline;
     gap: 0.625rem;
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     font-weight: 500;
   }
   .subnav__title b {
     font-family: var(--font-mono);
     font-weight: 400;
-    font-size: 0.6875rem;
+    font-size: 0.7812rem;
     color: var(--copper);
   }
   .subnav__links {
@@ -283,7 +287,7 @@ const sections = t.sections[page];
     align-items: baseline;
     gap: 0.5rem;
     padding: 0.4375rem 0.875rem;
-    font-size: 0.8438rem;
+    font-size: 0.9062rem;
     color: var(--text-dim);
     border: 1px solid transparent;
     border-radius: 62.4375rem;
@@ -291,7 +295,7 @@ const sections = t.sections[page];
   }
   .subnav__links a span {
     font-family: var(--font-mono);
-    font-size: 0.6562rem;
+    font-size: 0.75rem;
     color: var(--text-faint);
     transition: color 0.25s;
   }

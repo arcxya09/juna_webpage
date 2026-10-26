@@ -25,7 +25,7 @@ const frame = (W: number, H: number, pad: { l: number; r: number; t: number; b: 
   sy: (e: number) => H - pad.b - (e / yMax) * (H - pad.t - pad.b),
 });
 const d = frame(1000, 520, { l: 92, r: 36, t: 24, b: 56 });
-const m = frame(360, 440, { l: 46, r: 16, t: 24, b: 40 });
+const m = frame(320, 400, { l: 42, r: 12, t: 24, b: 38 });
 const trailPath = (f: typeof d) => grailRecords.map((r, i) => `${i ? 'L' : 'M'}${f.sx(r.year)} ${f.sy(r.e)}`).join(' ');
 const last = grailRecords[grailRecords.length - 1];
 const junaPath = (f: typeof d) =>
@@ -311,7 +311,7 @@ const records = showJuna ? [...grailRecords, ...grailJuna] : grailRecords;
     color: var(--copper-light);
   }
   .grail__facts dt {
-    font-size: 0.8438rem;
+    font-size: 0.9062rem;
     color: var(--text-faint);
   }
 
@@ -438,22 +438,22 @@ const records = showJuna ? [...grailRecords, ...grailJuna] : grailRecords;
   }
   .grail__key em {
     font-style: normal;
-    font-size: 0.7812rem;
+    font-size: 0.8438rem;
     opacity: 0.8;
   }
   .rec-year {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 12.5px;
     fill: var(--text-dim);
   }
   .grail__svg--m .tick {
-    font-size: 10.5px;
+    font-size: 12px;
   }
   .grail__svg--m .band-label {
-    font-size: 11.5px;
+    font-size: 12.5px;
   }
   .rec-label--m {
-    font-size: 12.5px;
+    font-size: 14px;
     letter-spacing: 0.06em;
   }
   .juna-line {
@@ -488,7 +488,7 @@ const records = showJuna ? [...grailRecords, ...grailJuna] : grailRecords;
   }
   .grail__note {
     margin: 1rem 0 0;
-    font-size: 0.8438rem;
+    font-size: 0.9062rem;
     color: var(--text-faint);
     max-width: 52em;
   }
@@ -613,7 +613,7 @@ const records = showJuna ? [...grailRecords, ...grailJuna] : grailRecords;
       padding: 0;
       list-style: none;
       border-top: 1px solid var(--line);
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
     }
     .grail__list li {
       display: grid;
@@ -626,7 +626,7 @@ const records = showJuna ? [...grailRecords, ...grailJuna] : grailRecords;
     }
     .grail__year {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
       color: var(--text-faint);
     }
     .grail__e {
@@ -637,7 +637,7 @@ const records = showJuna ? [...grailRecords, ...grailJuna] : grailRecords;
     .grail__e em {
       margin-left: 0.5rem;
       font-style: normal;
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
       color: var(--copper-light);
     }
     .grail__list li.is-juna,

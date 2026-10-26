@@ -64,14 +64,14 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
     margin-top: 3.875rem;
     height: var(--h);
     font-family: var(--font-mono);
-    font-size: 0.6562rem;
+    font-size: 0.75rem;
     color: var(--text-faint);
   }
   .chart__axis .label {
     position: absolute;
     top: -3.5rem;
     left: 0;
-    font-size: 0.625rem;
+    font-size: 0.75rem;
     line-height: 1.4;
   }
   .chart__axis i {
@@ -104,17 +104,17 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
     justify-content: flex-end;
     padding-bottom: 0.625rem;
     border-bottom: 1px solid var(--line-strong);
-    font-size: 0.7812rem;
+    font-size: 0.8438rem;
     line-height: 1.3;
   }
   .lab__head b {
     font-weight: 500;
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     letter-spacing: -0.01em;
     white-space: nowrap;
   }
   .lab__head small {
-    font-size: 0.6875rem;
+    font-size: 0.7812rem;
     color: var(--text-faint);
   }
   .lab__track {
@@ -137,7 +137,7 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
     left: 0;
     top: calc(var(--k) * 100% + 0.5rem);
     font-family: var(--font-mono);
-    font-size: 0.6875rem;
+    font-size: 0.7812rem;
     color: var(--text-dim);
     transition: opacity 0.6s ease calc(0.8s + var(--i) * 0.05s);
   }
@@ -158,12 +158,14 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
     left: 0;
     top: calc(3.875rem + var(--k) * var(--h) + 1.75rem);
     font-family: var(--font-mono);
-    font-size: 0.6562rem;
-    letter-spacing: 0.08em;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
     padding: 2px 0.375rem;
     border: 1px solid var(--copper);
+    background: var(--ink-950);
     color: var(--copper-light);
     white-space: nowrap;
+    z-index: 1;
   }
   .is-juna .lab__accel {
     background: var(--copper);
@@ -204,7 +206,7 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
     display: flex;
     align-items: center;
     gap: 0.625rem;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     color: var(--text-dim);
     margin: 0;
   }

@@ -21,7 +21,7 @@ const reactions = [
       [0, 1].map(() => (
         <div class="marquee__set">
           {reactions.map((r, i) => (
-            <span class:list={['marquee__item', i % 2 && 'is-outline']}>
+            <span class:list={['marquee__item', i % 2 && 'is-dim']}>
               <Reaction text={r} />
             </span>
           ))}
@@ -62,9 +62,8 @@ const reactions = [
     letter-spacing: -0.02em;
     color: var(--copper-light);
   }
-  .marquee__item.is-outline {
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(236, 238, 242, 0.5);
+  .marquee__item.is-dim {
+    color: rgba(236, 238, 242, 0.28);
   }
   @keyframes marquee {
     to {
