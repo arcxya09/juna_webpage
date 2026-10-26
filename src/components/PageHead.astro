@@ -70,7 +70,7 @@ const sections = t.sections[page];
 <style>
   .ph {
     position: relative;
-    min-height: min(100svh, 1000px);
+    min-height: min(100svh, 62.5rem);
     display: flex;
     align-items: flex-end;
     overflow: hidden;
@@ -106,15 +106,19 @@ const sections = t.sections[page];
   }
   .ph__num {
     position: absolute;
-    right: calc(var(--gutter) - 0.04em);
+    right: calc(var(--edge) - 0.04em);
     top: calc(var(--nav-h) + 4vh);
-    font-size: clamp(160px, 28vw, 440px);
+    font-size: clamp(10rem, 28vw, 27.5rem);
     line-height: 0.8;
-    font-weight: 100;
+    font-weight: 200;
     letter-spacing: -0.06em;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(227, 171, 128, 0.55);
     font-variant-numeric: tabular-nums;
+    /* A filled gradient rather than a hairline outline: thin text strokes
+       break up into jagged steps on standard-density screens. */
+    color: transparent;
+    background: linear-gradient(180deg, rgba(227, 171, 128, 0.38), rgba(227, 171, 128, 0.03) 92%);
+    -webkit-background-clip: text;
+    background-clip: text;
     user-select: none;
     pointer-events: none;
   }
@@ -130,11 +134,11 @@ const sections = t.sections[page];
   .ph__inner {
     position: relative;
     z-index: 1;
-    padding-top: calc(var(--nav-h) + 120px);
-    padding-bottom: clamp(120px, 15vh, 168px);
+    padding-top: calc(var(--nav-h) + 7.5rem);
+    padding-bottom: clamp(7.5rem, 15vh, 10.5rem);
   }
   .ph .kicker {
-    gap: 14px;
+    gap: 0.875rem;
   }
   .ph__count {
     color: var(--text-faint);
@@ -143,14 +147,14 @@ const sections = t.sections[page];
     content: '';
     display: inline-block;
     vertical-align: middle;
-    width: 18px;
+    width: 1.125rem;
     height: 1px;
-    margin-right: 14px;
+    margin-right: 0.875rem;
     background: var(--line-strong);
   }
   .ph__title {
-    margin: 0 0 28px;
-    font-size: clamp(44px, 7.2vw, 112px);
+    margin: 0 0 1.75rem;
+    font-size: clamp(2.75rem, 7.2vw, 7rem);
     line-height: 1.02;
     font-weight: 250;
     letter-spacing: -0.035em;
@@ -176,13 +180,13 @@ const sections = t.sections[page];
   .ph__scroll {
     position: absolute;
     z-index: 1;
-    right: var(--gutter);
-    bottom: 40px;
+    right: var(--edge);
+    bottom: 2.5rem;
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 0.875rem;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 0.7812rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--text-faint);
@@ -190,7 +194,7 @@ const sections = t.sections[page];
   .ph__scroll i {
     position: relative;
     width: 1px;
-    height: 56px;
+    height: 3.5rem;
     background: var(--line-strong);
     overflow: hidden;
   }
@@ -229,7 +233,7 @@ const sections = t.sections[page];
   @keyframes ph-fade {
     from {
       opacity: 0;
-      transform: translateY(18px);
+      transform: translateY(1.125rem);
     }
   }
 
@@ -250,26 +254,26 @@ const sections = t.sections[page];
   .subnav__inner {
     display: flex;
     align-items: center;
-    gap: 32px;
-    height: 54px;
+    gap: 2rem;
+    height: 3.375rem;
   }
   .subnav__title {
     flex: none;
     display: flex;
     align-items: baseline;
-    gap: 10px;
-    font-size: 14px;
+    gap: 0.625rem;
+    font-size: 0.9375rem;
     font-weight: 500;
   }
   .subnav__title b {
     font-family: var(--font-mono);
     font-weight: 400;
-    font-size: 11px;
+    font-size: 0.7812rem;
     color: var(--copper);
   }
   .subnav__links {
     display: flex;
-    gap: 6px;
+    gap: 0.375rem;
     margin-left: auto;
     overflow-x: auto;
     scrollbar-width: none;
@@ -281,17 +285,17 @@ const sections = t.sections[page];
     flex: none;
     display: flex;
     align-items: baseline;
-    gap: 8px;
-    padding: 7px 14px;
-    font-size: 13.5px;
+    gap: 0.5rem;
+    padding: 0.4375rem 0.875rem;
+    font-size: 0.9062rem;
     color: var(--text-dim);
     border: 1px solid transparent;
-    border-radius: 999px;
+    border-radius: 62.4375rem;
     transition: color 0.25s, border-color 0.25s, background 0.25s;
   }
   .subnav__links a span {
     font-family: var(--font-mono);
-    font-size: 10.5px;
+    font-size: 0.75rem;
     color: var(--text-faint);
     transition: color 0.25s;
   }
@@ -312,7 +316,7 @@ const sections = t.sections[page];
       min-height: 92svh;
     }
     .ph__num {
-      top: calc(var(--nav-h) + 24px);
+      top: calc(var(--nav-h) + 1.5rem);
       font-size: 46vw;
     }
     .ph__shade {
@@ -322,10 +326,10 @@ const sections = t.sections[page];
       display: none;
     }
     .ph__inner {
-      padding-bottom: 56px;
+      padding-bottom: 3.5rem;
     }
     .subnav__inner {
-      gap: 12px;
+      gap: 0.75rem;
     }
     .subnav__title {
       display: none;

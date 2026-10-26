@@ -53,25 +53,25 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
 
 <style>
   .chart {
-    --h: 380px;
+    --h: 23.75rem;
     position: relative;
     display: grid;
-    grid-template-columns: 72px minmax(0, 1fr);
-    gap: 16px;
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    gap: 1rem;
   }
   .chart__axis {
     position: relative;
-    margin-top: 62px;
+    margin-top: 3.875rem;
     height: var(--h);
     font-family: var(--font-mono);
-    font-size: 10.5px;
+    font-size: 0.75rem;
     color: var(--text-faint);
   }
   .chart__axis .label {
     position: absolute;
-    top: -56px;
+    top: -3.5rem;
     left: 0;
-    font-size: 10px;
+    font-size: 0.75rem;
     line-height: 1.4;
   }
   .chart__axis i {
@@ -88,9 +88,9 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
     padding: 0;
     display: grid;
     grid-template-columns: repeat(13, minmax(0, 1fr));
-    gap: 6px;
+    gap: 0.375rem;
     background:
-      repeating-linear-gradient(180deg, transparent 0 calc(var(--h) / 4 - 1px), var(--line) calc(var(--h) / 4 - 1px) calc(var(--h) / 4)) 0 62px / 100% var(--h) no-repeat;
+      repeating-linear-gradient(180deg, transparent 0 calc(var(--h) / 4 - 1px), var(--line) calc(var(--h) / 4 - 1px) calc(var(--h) / 4)) 0 3.875rem / 100% var(--h) no-repeat;
   }
   .lab {
     position: relative;
@@ -98,23 +98,23 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
     flex-direction: column;
   }
   .lab__head {
-    height: 62px;
+    height: 3.875rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding-bottom: 10px;
+    padding-bottom: 0.625rem;
     border-bottom: 1px solid var(--line-strong);
-    font-size: 12.5px;
+    font-size: 0.8438rem;
     line-height: 1.3;
   }
   .lab__head b {
     font-weight: 500;
-    font-size: 12px;
+    font-size: 0.8125rem;
     letter-spacing: -0.01em;
     white-space: nowrap;
   }
   .lab__head small {
-    font-size: 11px;
+    font-size: 0.7812rem;
     color: var(--text-faint);
   }
   .lab__track {
@@ -124,7 +124,7 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
   .lab__bar {
     position: absolute;
     left: 0;
-    width: min(34px, 70%);
+    width: min(2.125rem, 70%);
     top: 0;
     height: calc(var(--k) * 100%);
     background: linear-gradient(180deg, rgba(127, 156, 199, 0.08), rgba(127, 156, 199, 0.4));
@@ -135,9 +135,9 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
   .lab__depth {
     position: absolute;
     left: 0;
-    top: calc(var(--k) * 100% + 8px);
+    top: calc(var(--k) * 100% + 0.5rem);
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 0.7812rem;
     color: var(--text-dim);
     transition: opacity 0.6s ease calc(0.8s + var(--i) * 0.05s);
   }
@@ -151,19 +151,21 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
   }
   .is-juna .lab__bar {
     background: linear-gradient(180deg, rgba(227, 171, 128, 0.2), var(--copper));
-    box-shadow: 0 18px 40px -10px rgba(194, 124, 78, 0.6);
+    box-shadow: 0 1.125rem 2.5rem -0.625rem rgba(194, 124, 78, 0.6);
   }
   .lab__accel {
     position: absolute;
     left: 0;
-    top: calc(62px + var(--k) * var(--h) + 28px);
+    top: calc(3.875rem + var(--k) * var(--h) + 1.75rem);
     font-family: var(--font-mono);
-    font-size: 10.5px;
-    letter-spacing: 0.08em;
-    padding: 2px 6px;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    padding: 2px 0.375rem;
     border: 1px solid var(--copper);
+    background: var(--ink-950);
     color: var(--copper-light);
     white-space: nowrap;
+    z-index: 1;
   }
   .is-juna .lab__accel {
     background: var(--copper);
@@ -174,10 +176,10 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
     top: auto;
   }
   .is-juna .lab__depth {
-    top: calc(100% + 8px);
+    top: calc(100% + 0.5rem);
   }
   .is-juna .lab__accel {
-    top: calc(62px + var(--h) + 28px);
+    top: calc(3.875rem + var(--h) + 1.75rem);
   }
   :global(.js) .lab__bar {
     transform: scaleY(0);
@@ -193,24 +195,24 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
   }
 
   .labs__foot {
-    margin-top: 72px;
+    margin-top: 4.5rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 8px 32px;
+    gap: 0.5rem 2rem;
     align-items: baseline;
   }
   .labs__legend {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 13px;
+    gap: 0.625rem;
+    font-size: 0.875rem;
     color: var(--text-dim);
     margin: 0;
   }
   .labs__legend i {
-    width: 14px;
-    height: 14px;
+    width: 0.875rem;
+    height: 0.875rem;
     background: var(--copper);
   }
   @media (prefers-reduced-motion: reduce) {
@@ -238,10 +240,10 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
     }
     .lab {
       display: grid;
-      grid-template-columns: 96px minmax(0, 1fr);
+      grid-template-columns: 6rem minmax(0, 1fr);
       align-items: center;
-      gap: 12px;
-      padding: 8px 0;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
       border-bottom: 1px solid var(--line);
     }
     .lab__head {
@@ -250,7 +252,7 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
       padding: 0;
     }
     .lab__track {
-      height: 14px;
+      height: 0.875rem;
     }
     .lab__bar {
       top: 0;
@@ -275,7 +277,7 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
     .lab__depth,
     .is-juna .lab__depth {
       top: 50%;
-      left: calc(var(--k) * 58% + 8px);
+      left: calc(var(--k) * 58% + 0.5rem);
       transform: translateY(-50%);
     }
     .lab__accel,
@@ -287,7 +289,7 @@ const sorted = [...labs].sort((a, b) => a.depth - b.depth);
       transform: translateY(-50%);
     }
     .labs__foot {
-      margin-top: 28px;
+      margin-top: 1.75rem;
     }
   }
 </style>

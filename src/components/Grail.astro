@@ -25,7 +25,7 @@ const frame = (W: number, H: number, pad: { l: number; r: number; t: number; b: 
   sy: (e: number) => H - pad.b - (e / yMax) * (H - pad.t - pad.b),
 });
 const d = frame(1000, 520, { l: 92, r: 36, t: 24, b: 56 });
-const m = frame(360, 440, { l: 46, r: 16, t: 24, b: 40 });
+const m = frame(320, 400, { l: 42, r: 12, t: 24, b: 38 });
 const trailPath = (f: typeof d) => grailRecords.map((r, i) => `${i ? 'L' : 'M'}${f.sx(r.year)} ${f.sy(r.e)}`).join(' ');
 const last = grailRecords[grailRecords.length - 1];
 const junaPath = (f: typeof d) =>
@@ -290,43 +290,43 @@ const records = showJuna ? [...grailRecords, ...grailJuna] : grailRecords;
   .grail__top {
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
-    gap: clamp(40px, 6vw, 96px);
+    gap: clamp(2.5rem, 6vw, 6rem);
     align-items: end;
-    margin-bottom: clamp(56px, 7vw, 96px);
+    margin-bottom: clamp(3.5rem, 7vw, 6rem);
   }
   .grail__facts {
     margin: 0;
     border-top: 1px solid var(--line-strong);
   }
   .grail__facts div {
-    padding: 20px 0;
+    padding: 1.25rem 0;
     border-bottom: 1px solid var(--line);
   }
   .grail__facts dd {
-    margin: 0 0 4px;
-    font-size: clamp(34px, 3.4vw, 46px);
+    margin: 0 0 0.25rem;
+    font-size: clamp(2.125rem, 3.4vw, 2.875rem);
     font-weight: 200;
     letter-spacing: -0.02em;
     line-height: 1.1;
     color: var(--copper-light);
   }
   .grail__facts dt {
-    font-size: 13.5px;
+    font-size: 0.9062rem;
     color: var(--text-faint);
   }
 
   .grail__chart {
     margin: 0;
-    padding: clamp(20px, 3vw, 40px);
+    padding: clamp(1.25rem, 3vw, 2.5rem);
     border: 1px solid var(--line);
     background: var(--ink-900);
   }
   .grail__title {
     display: flex;
-    gap: 16px;
+    gap: 1rem;
     align-items: baseline;
-    font-size: 17px;
-    margin-bottom: 20px;
+    font-size: 1.0625rem;
+    margin-bottom: 1.25rem;
   }
   .grail__title .label {
     flex: none;
@@ -409,22 +409,22 @@ const records = showJuna ? [...grailRecords, ...grailJuna] : grailRecords;
   .grail__key {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px 32px;
-    margin: 18px 0 0;
-    padding-top: 16px;
+    gap: 0.5rem 2rem;
+    margin: 1.125rem 0 0;
+    padding-top: 1rem;
     border-top: 1px solid var(--line);
-    font-size: 14.5px;
+    font-size: 0.9062rem;
     color: var(--copper-light);
   }
   .grail__key span {
     display: inline-flex;
     align-items: baseline;
-    gap: 10px;
+    gap: 0.625rem;
   }
   .grail__key i {
     align-self: center;
-    width: 11px;
-    height: 11px;
+    width: 0.6875rem;
+    height: 0.6875rem;
     border-radius: 50%;
     background: var(--copper-light);
   }
@@ -438,22 +438,22 @@ const records = showJuna ? [...grailRecords, ...grailJuna] : grailRecords;
   }
   .grail__key em {
     font-style: normal;
-    font-size: 12.5px;
+    font-size: 0.8438rem;
     opacity: 0.8;
   }
   .rec-year {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 12.5px;
     fill: var(--text-dim);
   }
   .grail__svg--m .tick {
-    font-size: 10.5px;
+    font-size: 12px;
   }
   .grail__svg--m .band-label {
-    font-size: 11.5px;
+    font-size: 12.5px;
   }
   .rec-label--m {
-    font-size: 12.5px;
+    font-size: 14px;
     letter-spacing: 0.06em;
   }
   .juna-line {
@@ -487,8 +487,8 @@ const records = showJuna ? [...grailRecords, ...grailJuna] : grailRecords;
     opacity: 0.8;
   }
   .grail__note {
-    margin: 16px 0 0;
-    font-size: 13.5px;
+    margin: 1rem 0 0;
+    font-size: 0.9062rem;
     color: var(--text-faint);
     max-width: 52em;
   }
@@ -531,39 +531,39 @@ const records = showJuna ? [...grailRecords, ...grailJuna] : grailRecords;
 
   .grail__juna {
     display: grid;
-    grid-template-columns: 120px minmax(0, 1fr);
-    gap: 24px;
-    margin-top: 24px;
-    padding: 28px 32px;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    padding: 1.75rem 2rem;
     border: 1px solid rgba(194, 124, 78, 0.45);
     background: linear-gradient(90deg, var(--copper-glow), transparent 70%);
   }
   .grail__juna .label {
     color: var(--copper-light);
-    padding-top: 4px;
+    padding-top: 0.25rem;
   }
   .grail__juna p {
     margin: 0;
-    font-size: 17px;
+    font-size: 1.0625rem;
     font-weight: 300;
   }
 
   .gw {
     display: grid;
     grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
-    gap: clamp(32px, 5vw, 80px);
+    gap: clamp(2rem, 5vw, 5rem);
     align-items: center;
-    margin-top: clamp(72px, 9vw, 128px);
+    margin-top: clamp(4.5rem, 9vw, 8rem);
   }
   .gw__art {
-    max-width: 320px;
+    max-width: 20rem;
   }
   .gw__art circle {
     fill: none;
     stroke: var(--copper);
     stroke-width: 0.6;
     opacity: calc(1 - var(--i, 0) * 0.17);
-    transform-origin: 100px 100px;
+    transform-origin: 6.25rem 6.25rem;
     animation: ripple 6s ease-in-out infinite;
     animation-delay: calc(var(--i, 0) * -0.6s);
   }
@@ -594,7 +594,7 @@ const records = showJuna ? [...grailRecords, ...grailJuna] : grailRecords;
       grid-template-columns: minmax(0, 1fr);
     }
     .gw__art {
-      max-width: 200px;
+      max-width: 12.5rem;
     }
   }
   /* Phones: the taller drawing, with the records listed underneath. */
@@ -605,28 +605,28 @@ const records = showJuna ? [...grailRecords, ...grailJuna] : grailRecords;
     }
     .grail__svg--m {
       display: block;
-      max-width: 460px;
+      max-width: 28.75rem;
     }
     .grail__list {
       display: grid;
-      margin: 20px 0 0;
+      margin: 1.25rem 0 0;
       padding: 0;
       list-style: none;
       border-top: 1px solid var(--line);
-      font-size: 14px;
+      font-size: 0.9375rem;
     }
     .grail__list li {
       display: grid;
       grid-template-columns: 3.4em minmax(0, 1fr) auto;
-      gap: 12px;
+      gap: 0.75rem;
       align-items: baseline;
-      padding: 9px 0;
+      padding: 0.5625rem 0;
       border-bottom: 1px solid var(--line);
       color: var(--text-dim);
     }
     .grail__year {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 0.8125rem;
       color: var(--text-faint);
     }
     .grail__e {
@@ -635,9 +635,9 @@ const records = showJuna ? [...grailRecords, ...grailJuna] : grailRecords;
       white-space: nowrap;
     }
     .grail__e em {
-      margin-left: 8px;
+      margin-left: 0.5rem;
       font-style: normal;
-      font-size: 12px;
+      font-size: 0.8125rem;
       color: var(--copper-light);
     }
     .grail__list li.is-juna,
@@ -649,8 +649,8 @@ const records = showJuna ? [...grailRecords, ...grailJuna] : grailRecords;
   @media (max-width: 600px) {
     .grail__juna {
       grid-template-columns: minmax(0, 1fr);
-      gap: 8px;
-      padding: 22px 20px;
+      gap: 0.5rem;
+      padding: 1.375rem 1.25rem;
     }
   }
 </style>

@@ -49,38 +49,38 @@ const { keys } = Astro.props.t;
     border-top: 1px solid var(--line-strong);
   }
   .key {
-    padding: 36px clamp(24px, 4vw, 64px) 8px 0;
+    padding: 2.25rem clamp(1.5rem, 4vw, 4rem) 0.5rem 0;
   }
   .key + .key {
-    padding-left: clamp(24px, 4vw, 64px);
+    padding-left: clamp(1.5rem, 4vw, 4rem);
     border-left: 1px solid var(--line);
   }
   .key__k {
     display: flex;
     align-items: center;
-    gap: 14px;
-    font-size: 18px;
-    margin: 0 0 28px;
+    gap: 0.875rem;
+    font-size: 1.125rem;
+    margin: 0 0 1.75rem;
   }
   .key__k span {
     display: inline-grid;
     place-items: center;
-    width: 28px;
-    height: 28px;
+    width: 1.75rem;
+    height: 1.75rem;
     border: 1px solid var(--copper);
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 0.8125rem;
     color: var(--copper-light);
   }
   .key__big {
     display: flex;
     align-items: baseline;
     flex-wrap: wrap;
-    gap: 14px;
-    margin: 0 0 24px;
+    gap: 0.875rem;
+    margin: 0 0 1.5rem;
   }
   .key__num {
-    font-size: clamp(56px, 8vw, 120px);
+    font-size: clamp(3.5rem, 8vw, 7.5rem);
     font-weight: 150;
     letter-spacing: -0.04em;
     line-height: 1;
@@ -88,7 +88,7 @@ const { keys } = Astro.props.t;
   }
   .key__unit {
     font-family: var(--font-mono);
-    font-size: 15px;
+    font-size: 0.9375rem;
     color: var(--copper-light);
   }
   .key__v {
@@ -102,7 +102,7 @@ const { keys } = Astro.props.t;
     }
     .key,
     .key + .key {
-      padding: 32px 0 24px;
+      padding: 2rem 0 1.5rem;
       border-left: 0;
     }
     .key + .key {

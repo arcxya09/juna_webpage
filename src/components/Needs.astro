@@ -60,15 +60,15 @@ const pct = (s: string) => parseFloat(s);
   .needs__row {
     display: grid;
     grid-template-columns: minmax(0, 3.2fr) minmax(0, 4fr) minmax(0, 1.6fr) minmax(0, 1.6fr);
-    gap: 32px;
+    gap: 2rem;
     align-items: center;
-    padding: 26px 0;
+    padding: 1.625rem 0;
     border-bottom: 1px solid var(--line);
   }
   .needs__row--head {
-    padding: 14px 0;
+    padding: 0.875rem 0;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 0.7812rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--text-faint);
@@ -83,26 +83,26 @@ const pct = (s: string) => parseFloat(s);
   .needs__what {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 0.25rem;
   }
   :global(.needs__reaction) {
-    font-size: clamp(22px, 2.2vw, 28px);
+    font-size: clamp(1.375rem, 2.2vw, 1.75rem);
     font-weight: 300;
   }
   .needs__problem {
-    font-size: 14px;
+    font-size: 0.9375rem;
     color: var(--text-faint);
   }
   .needs__bars {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding: 6px 0;
+    gap: 0.5rem;
+    padding: 0.375rem 0;
     background: linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 25% 100%;
   }
   .bar {
     display: block;
-    height: 6px;
+    height: 0.375rem;
     width: var(--w);
     transform-origin: 0 50%;
     transition: transform 1.2s var(--ease) calc(var(--d, 0s) + 0.2s);
@@ -125,7 +125,7 @@ const pct = (s: string) => parseFloat(s);
     gap: 2px;
   }
   .needs__val b {
-    font-size: 28px;
+    font-size: 1.75rem;
     font-weight: 250;
     letter-spacing: -0.02em;
     line-height: 1.15;
@@ -141,13 +141,13 @@ const pct = (s: string) => parseFloat(s);
     display: none;
     font-style: normal;
     font-family: var(--font-mono);
-    font-size: 10.5px;
+    font-size: 0.75rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--text-faint);
   }
   .needs__val small {
-    font-size: 12.5px;
+    font-size: 0.8438rem;
     color: var(--text-faint);
   }
   @media (prefers-reduced-motion: reduce) {
@@ -158,7 +158,7 @@ const pct = (s: string) => parseFloat(s);
   @media (max-width: 860px) {
     .needs__row {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 14px 24px;
+      gap: 0.875rem 1.5rem;
     }
     .needs__row--head {
       display: none;

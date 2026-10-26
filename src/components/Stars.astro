@@ -63,43 +63,43 @@ const { stars } = Astro.props.t;
     border-top: 1px solid var(--line-strong);
   }
   .pillars li {
-    padding: 28px 28px 8px 0;
+    padding: 1.75rem 1.75rem 0.5rem 0;
   }
   .pillars li + li {
-    padding-left: 28px;
+    padding-left: 1.75rem;
     border-left: 1px solid var(--line);
   }
   .pillars__i {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 0.7812rem;
     letter-spacing: 0.14em;
     color: var(--copper);
   }
   .pillars h3 {
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 400;
-    margin: 18px 0 12px;
+    margin: 1.125rem 0 0.75rem;
   }
   .pillars p {
     color: var(--text-dim);
-    font-size: 15.5px;
+    font-size: 0.9688rem;
     margin: 0;
   }
 
   .classes {
-    margin-top: clamp(72px, 9vw, 120px);
+    margin-top: clamp(4.5rem, 9vw, 7.5rem);
   }
   .classes__title {
-    margin: 0 0 20px;
+    margin: 0 0 1.25rem;
   }
   .classes__grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
+    gap: 1rem;
   }
   .cls {
     position: relative;
-    padding: 32px 32px 28px;
+    padding: 2rem 2rem 1.75rem;
     background: linear-gradient(160deg, var(--ink-800), var(--ink-850));
     border: 1px solid var(--line);
     overflow: hidden;
@@ -108,7 +108,7 @@ const { stars } = Astro.props.t;
     content: '';
     position: absolute;
     inset: 0 auto auto 0;
-    width: 48px;
+    width: 3rem;
     height: 2px;
     background: var(--copper);
   }
@@ -116,18 +116,18 @@ const { stars } = Astro.props.t;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 16px;
-    padding-bottom: 20px;
+    gap: 1rem;
+    padding-bottom: 1.25rem;
     border-bottom: 1px solid var(--line);
   }
   .cls h3 {
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 500;
     margin: 0;
   }
   .cls header p {
     margin: 0;
-    font-size: 13px;
+    font-size: 0.875rem;
     color: var(--text-faint);
     text-align: right;
   }
@@ -137,8 +137,8 @@ const { stars } = Astro.props.t;
     padding: 0;
   }
   .cls li {
-    padding: 18px 0 0;
-    font-size: clamp(24px, 2.4vw, 32px);
+    padding: 1.125rem 0 0;
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
     font-weight: 250;
     color: var(--copper-light);
   }
@@ -153,7 +153,7 @@ const { stars } = Astro.props.t;
     }
     .pillars li:nth-child(n + 3) {
       border-top: 1px solid var(--line);
-      margin-top: 20px;
+      margin-top: 1.25rem;
     }
     .classes__grid {
       grid-template-columns: minmax(0, 1fr);
@@ -165,7 +165,7 @@ const { stars } = Astro.props.t;
     }
     .pillars li,
     .pillars li + li {
-      padding: 22px 0 6px;
+      padding: 1.375rem 0 0.375rem;
       border-left: 0;
       margin-top: 0;
     }
@@ -173,7 +173,7 @@ const { stars } = Astro.props.t;
       border-top: 1px solid var(--line);
     }
     .cls {
-      padding: 26px 22px 22px;
+      padding: 1.625rem 1.375rem 1.375rem;
     }
   }
 </style>
