@@ -62,7 +62,7 @@ const results = href(lang, 'results');
 
 <style>
   .hl__more {
-    margin: 0 0 8px;
+    margin: 0 0 0.5rem;
     justify-self: end;
   }
   .hl__grid {
@@ -76,11 +76,11 @@ const results = href(lang, 'results');
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    min-height: 440px;
-    padding: 36px 32px 32px;
+    gap: 0.875rem;
+    min-height: 27.5rem;
+    padding: 2.25rem 2rem 2rem;
     border-right: 1px solid var(--line);
-    background: radial-gradient(360px circle at var(--mx) var(--my), rgba(227, 171, 128, 0.1), transparent 70%);
+    background: radial-gradient(22.5rem circle at var(--mx) var(--my), rgba(227, 171, 128, 0.1), transparent 70%);
     background-size: 100% 100%;
     background-repeat: no-repeat;
     transition: background-color 0.4s;
@@ -109,29 +109,29 @@ const results = href(lang, 'results');
   }
   .hl__i {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 0.6875rem;
     letter-spacing: 0.16em;
     color: var(--text-faint);
   }
   .hl__reaction {
-    font-size: clamp(24px, 2.2vw, 30px);
+    font-size: clamp(1.5rem, 2.2vw, 1.875rem);
     font-weight: 300;
     color: var(--copper-light);
     letter-spacing: 0;
   }
   .hl__title {
-    font-size: 19px;
+    font-size: 1.1875rem;
     line-height: 1.45;
   }
   .hl__stat {
     margin-top: auto;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    padding-top: 28px;
+    gap: 0.375rem;
+    padding-top: 1.75rem;
   }
   .hl__value {
-    font-size: clamp(44px, 4.6vw, 68px);
+    font-size: clamp(2.75rem, 4.6vw, 4.25rem);
     line-height: 1;
     font-weight: 200;
     letter-spacing: -0.03em;
@@ -143,26 +143,26 @@ const results = href(lang, 'results');
     color: var(--copper-light);
   }
   .hl__label {
-    font-size: 14px;
+    font-size: 0.875rem;
     line-height: 1.55;
     color: var(--text-dim);
   }
   .hl__venue {
-    padding-top: 18px;
+    padding-top: 1.125rem;
     border-top: 1px solid var(--line);
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 0.75rem;
     letter-spacing: 0.04em;
     color: var(--text-faint);
   }
 
   .join {
-    margin-top: clamp(64px, 8vw, 112px);
+    margin-top: clamp(4rem, 8vw, 7rem);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 32px;
-    padding: clamp(32px, 4vw, 56px) clamp(24px, 4vw, 56px);
+    gap: 2rem;
+    padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 3.5rem);
     border: 1px solid var(--line-strong);
     background:
       radial-gradient(80% 140% at 100% 0%, rgba(194, 124, 78, 0.22), transparent 60%),
@@ -172,7 +172,7 @@ const results = href(lang, 'results');
     transition: border-color 0.4s;
   }
   .join__title {
-    font-size: clamp(24px, 2.8vw, 40px);
+    font-size: clamp(1.5rem, 2.8vw, 2.5rem);
     line-height: 1.25;
     font-weight: 300;
     letter-spacing: -0.01em;
@@ -185,17 +185,17 @@ const results = href(lang, 'results');
     flex: none;
     display: inline-flex;
     align-items: center;
-    gap: 16px;
-    font-size: 13px;
+    gap: 1rem;
+    font-size: 0.8125rem;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     font-weight: 500;
     color: var(--copper-light);
   }
   .join__link svg {
-    width: 56px;
-    height: 56px;
-    padding: 16px;
+    width: 3.5rem;
+    height: 3.5rem;
+    padding: 1rem;
     border: 1px solid rgba(227, 171, 128, 0.5);
     border-radius: 50%;
     fill: none;
@@ -212,7 +212,7 @@ const results = href(lang, 'results');
   .join:hover .join__link svg {
     background: var(--copper);
     color: var(--ink-950);
-    transform: translateX(6px);
+    transform: translateX(0.375rem);
   }
 
   @media (max-width: 960px) {
@@ -223,7 +223,7 @@ const results = href(lang, 'results');
       min-height: 0;
       border-left: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
-      padding: 28px 24px;
+      padding: 1.75rem 1.5rem;
     }
     .hl__more {
       justify-self: start;

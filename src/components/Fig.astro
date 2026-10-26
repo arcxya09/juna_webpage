@@ -25,7 +25,7 @@ const {
   caption,
   num,
   plate = false,
-  sizes = '(min-width: 1320px) 640px, (min-width: 960px) 50vw, 100vw',
+  sizes = '(min-width: 1441px) 40vw, (min-width: 1320px) 640px, (min-width: 960px) 50vw, 100vw',
   ratio,
   pos,
   reveal = 'clip',
@@ -76,7 +76,7 @@ const delay = d ? `--d:${d}s` : undefined;
   }
   .fig--plate .fig__media {
     background: var(--paper);
-    padding: clamp(10px, 1.6vw, 22px);
+    padding: clamp(0.625rem, 1.6vw, 1.375rem);
   }
   .fig--plate.fig--crop img {
     object-fit: contain;
@@ -86,16 +86,16 @@ const delay = d ? `--d:${d}s` : undefined;
   }
   figcaption {
     display: flex;
-    gap: 14px;
-    margin-top: 14px;
-    font-size: 13px;
+    gap: 0.875rem;
+    margin-top: 0.875rem;
+    font-size: 0.8125rem;
     line-height: 1.6;
     color: var(--text-faint);
   }
   .fig__num {
     flex: none;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 0.6875rem;
     letter-spacing: 0.12em;
     color: var(--copper);
     padding-top: 2px;

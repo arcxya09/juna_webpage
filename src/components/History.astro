@@ -44,7 +44,7 @@ const { history } = Astro.props.t;
               </div>
               {photo && (
                 <div class="tl__media">
-                  <Image src={photo} alt={`${it.date} ${it.title}`} widths={widths(photo, [400, 700])} sizes="340px" loading="lazy" />
+                  <Image src={photo} alt={`${it.date} ${it.title}`} widths={widths(photo, [400, 700])} sizes="(min-width: 1441px) 20vw, 340px" loading="lazy" />
                 </div>
               )}
             </li>
@@ -67,8 +67,8 @@ const { history } = Astro.props.t;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    gap: 32px;
-    margin-bottom: clamp(40px, 5vw, 64px);
+    gap: 2rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
   }
   .history__head .h2 {
     margin-bottom: 0;
@@ -76,15 +76,15 @@ const { history } = Astro.props.t;
   .history__ctrl {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 0.625rem;
     flex: none;
   }
   .history__ctrl .label {
-    margin-right: 10px;
+    margin-right: 0.625rem;
   }
   .history__btn {
-    width: 48px;
-    height: 48px;
+    width: 3rem;
+    height: 3rem;
     display: grid;
     place-items: center;
     background: none;
@@ -102,8 +102,8 @@ const { history } = Astro.props.t;
     cursor: default;
   }
   .history__btn svg {
-    width: 18px;
-    height: 18px;
+    width: 1.125rem;
+    height: 1.125rem;
     fill: none;
     stroke: currentColor;
     stroke-width: 1.4;
@@ -116,9 +116,9 @@ const { history } = Astro.props.t;
     overflow-x: auto;
     scroll-snap-type: x proximity;
     scrollbar-width: none;
-    padding: 0 0 8px;
-    padding-inline: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
-    scroll-padding-inline: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
+    padding: 0 0 0.5rem;
+    padding-inline: var(--edge);
+    scroll-padding-inline: var(--edge);
     cursor: grab;
   }
   .tl__track::-webkit-scrollbar {
@@ -132,48 +132,48 @@ const { history } = Astro.props.t;
   .tl__item {
     position: relative;
     flex: none;
-    width: 230px;
-    padding: 40px 32px 0 0;
+    width: 14.375rem;
+    padding: 2.5rem 2rem 0 0;
     scroll-snap-align: start;
     display: flex;
     flex-direction: column;
   }
   .tl__item.has-photo {
-    width: 340px;
+    width: 21.25rem;
   }
   .tl__item::before {
     content: '';
     position: absolute;
     left: 0;
     right: 0;
-    top: 9px;
+    top: 0.5625rem;
     height: 1px;
     background: var(--line-strong);
   }
   .tl__dot {
     position: absolute;
     left: 0;
-    top: 4px;
-    width: 11px;
-    height: 11px;
+    top: 0.25rem;
+    width: 0.6875rem;
+    height: 0.6875rem;
     border-radius: 50%;
     border: 1px solid var(--copper);
     background: var(--ink-900);
   }
   .is-hl .tl__dot {
     background: var(--copper);
-    box-shadow: 0 0 0 6px rgba(194, 124, 78, 0.18);
+    box-shadow: 0 0 0 0.375rem rgba(194, 124, 78, 0.18);
   }
   .tl__date {
     display: block;
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 0.8125rem;
     letter-spacing: 0.06em;
     color: var(--copper-light);
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
   }
   .tl__title {
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 1.45;
     font-weight: 400;
     margin: 0;
@@ -182,14 +182,14 @@ const { history } = Astro.props.t;
     font-weight: 500;
   }
   .tl__note {
-    margin: 6px 0 0;
-    font-size: 13.5px;
+    margin: 0.375rem 0 0;
+    font-size: 0.8438rem;
     color: var(--text-faint);
   }
   /* Items stretch to the tallest one; pushing photos to the bottom keeps
      them on one line even when a date carries an extra note. */
   .tl__text {
-    padding-bottom: 20px;
+    padding-bottom: 1.25rem;
   }
   .tl__media {
     margin-top: auto;
@@ -212,14 +212,14 @@ const { history } = Astro.props.t;
   .tl__bar {
     position: relative;
     height: 1px;
-    margin-top: 40px;
+    margin-top: 2.5rem;
     background: var(--line);
   }
   .tl__bar i {
     position: absolute;
     left: 0;
     top: -1px;
-    height: 3px;
+    height: 0.1875rem;
     width: 100%;
     background: var(--copper);
     transform-origin: 0 50%;
@@ -234,11 +234,11 @@ const { history } = Astro.props.t;
       display: none;
     }
     .tl__item {
-      width: 200px;
-      padding-right: 24px;
+      width: 12.5rem;
+      padding-right: 1.5rem;
     }
     .tl__item.has-photo {
-      width: 280px;
+      width: 17.5rem;
     }
   }
 </style>

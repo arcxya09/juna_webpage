@@ -31,12 +31,12 @@ const nv = img('news-views.jpg');
 
     <div class="impact__covers">
       <figure class="impact__cover" data-reveal>
-        <Image src={cover} alt={impact.covers[0]} widths={widths(cover, [360, 680])} sizes="(min-width: 960px) 260px, 45vw" loading="lazy" />
+        <Image src={cover} alt={impact.covers[0]} widths={widths(cover, [360, 680])} sizes="(min-width: 1441px) 16vw, (min-width: 960px) 260px, 45vw" loading="lazy" />
         <figcaption>{impact.covers[0]}</figcaption>
       </figure>
       <figure class="impact__nv" data-reveal style="--d:.12s">
         <div class="impact__paper">
-          <Image src={nv} alt={impact.covers[1]} widths={widths(nv, [480, 900])} sizes="(min-width: 960px) 340px, 90vw" loading="lazy" />
+          <Image src={nv} alt={impact.covers[1]} widths={widths(nv, [480, 900])} sizes="(min-width: 1441px) 21vw, (min-width: 960px) 340px, 90vw" loading="lazy" />
         </div>
         <figcaption>{impact.covers[1]}</figcaption>
       </figure>
@@ -55,59 +55,59 @@ const nv = img('news-views.jpg');
   .impact__grid {
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    gap: clamp(40px, 6vw, 96px);
+    gap: clamp(2.5rem, 6vw, 6rem);
     align-items: start;
   }
   .impact__list {
-    margin: 48px 0 0;
+    margin: 3rem 0 0;
     border-top: 1px solid var(--line-strong);
   }
   .impact__list div {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr);
-    gap: 24px;
-    padding: 24px 0;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
     border-bottom: 1px solid var(--line);
   }
   .impact__list dt {
-    font-size: 17px;
+    font-size: 1.0625rem;
     color: var(--copper-light);
   }
   .impact__list dd {
     margin: 0;
     color: var(--text-dim);
-    font-size: 15.5px;
+    font-size: 0.9688rem;
   }
   .impact__covers {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
-    gap: 20px;
+    gap: 1.25rem;
     align-items: end;
-    padding-top: 12px;
+    padding-top: 0.75rem;
   }
   .impact__covers figure {
     margin: 0;
   }
   .impact__cover img {
-    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 1.875rem 3.75rem -1.25rem rgba(0, 0, 0, 0.7);
     transform: rotate(-2deg);
   }
   .impact__paper {
     background: var(--paper);
-    padding: 12px;
-    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+    padding: 0.75rem;
+    box-shadow: 0 1.875rem 3.75rem -1.25rem rgba(0, 0, 0, 0.7);
   }
   .impact__covers figcaption {
-    margin-top: 16px;
-    font-size: 12.5px;
+    margin-top: 1rem;
+    font-size: 0.7812rem;
     color: var(--text-faint);
   }
   .impact__more {
     grid-column: 1 / -1;
-    margin: 8px 0 0;
-    padding-top: 16px;
+    margin: 0.5rem 0 0;
+    padding-top: 1rem;
     border-top: 1px solid var(--line);
-    font-size: 13px;
+    font-size: 0.8125rem;
     color: var(--text-faint);
   }
   @media (max-width: 960px) {
@@ -115,13 +115,13 @@ const nv = img('news-views.jpg');
       grid-template-columns: minmax(0, 1fr);
     }
     .impact__covers {
-      max-width: 560px;
+      max-width: 35rem;
     }
   }
   @media (max-width: 600px) {
     .impact__list div {
       grid-template-columns: minmax(0, 1fr);
-      gap: 6px;
+      gap: 0.375rem;
     }
   }
 </style>

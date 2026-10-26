@@ -88,29 +88,29 @@ const { plan, superjuna: sj } = Astro.props.t;
   .plan__grid {
     display: grid;
     grid-template-columns: minmax(0, 4fr) minmax(0, 3fr);
-    gap: 20px;
+    gap: 1.25rem;
   }
   .plan__group {
-    padding: 32px 36px 20px;
+    padding: 2rem 2.25rem 1.25rem;
     border: 1px solid var(--line);
     background: var(--ink-850);
   }
   .plan__group h3 {
     display: flex;
     align-items: center;
-    gap: 14px;
-    font-size: 19px;
+    gap: 0.875rem;
+    font-size: 1.1875rem;
     font-weight: 400;
-    margin: 0 0 12px;
+    margin: 0 0 0.75rem;
   }
   .plan__group h3 span {
     display: inline-grid;
     place-items: center;
-    width: 28px;
-    height: 28px;
+    width: 1.75rem;
+    height: 1.75rem;
     border: 1px solid var(--copper);
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--copper-light);
   }
   .plan__group ul {
@@ -121,18 +121,18 @@ const { plan, superjuna: sj } = Astro.props.t;
   .plan__group li {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
-    gap: 16px;
+    gap: 1rem;
     align-items: baseline;
-    padding: 16px 0;
+    padding: 1rem 0;
     border-top: 1px solid var(--line);
   }
   :global(.plan__reaction) {
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 250;
     color: var(--copper-light);
   }
   .plan__group li > span:last-child {
-    font-size: 15px;
+    font-size: 0.9375rem;
     color: var(--text-dim);
   }
 
@@ -157,57 +157,57 @@ const { plan, superjuna: sj } = Astro.props.t;
     border-top: 1px solid var(--line-strong);
   }
   .sj__challenges li {
-    padding: 28px 28px 8px 0;
+    padding: 1.75rem 1.75rem 0.5rem 0;
   }
   .sj__challenges li + li {
-    padding-left: 28px;
+    padding-left: 1.75rem;
     border-left: 1px solid var(--line);
   }
   .sj__i {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 0.6875rem;
     color: var(--copper);
     letter-spacing: 0.14em;
   }
   .sj__challenges h3 {
-    font-size: clamp(22px, 2.2vw, 28px);
+    font-size: clamp(1.375rem, 2.2vw, 1.75rem);
     font-weight: 300;
-    margin: 16px 0 10px;
+    margin: 1rem 0 0.625rem;
   }
   .sj__challenges p {
     margin: 0;
     color: var(--text-dim);
-    font-size: 15.5px;
+    font-size: 0.9688rem;
   }
   .sj__specs {
-    margin: 56px 0 0;
+    margin: 3.5rem 0 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 20px;
+    gap: 1.25rem;
   }
   .sj__specs div {
-    padding: 24px 28px;
+    padding: 1.5rem 1.75rem;
     border: 1px solid var(--line);
   }
   .sj__specs dd {
-    margin: 0 0 6px;
+    margin: 0 0 0.375rem;
     display: flex;
     align-items: baseline;
-    gap: 8px;
+    gap: 0.5rem;
   }
   .sj__num {
-    font-size: 56px;
+    font-size: 3.5rem;
     font-weight: 150;
     letter-spacing: -0.03em;
     line-height: 1;
   }
   .sj__unit {
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 0.8125rem;
     color: var(--copper-light);
   }
   .sj__specs dt {
-    font-size: 13.5px;
+    font-size: 0.8438rem;
     color: var(--text-faint);
   }
   @media (max-width: 960px) {
@@ -222,18 +222,18 @@ const { plan, superjuna: sj } = Astro.props.t;
     }
     .sj__challenges li,
     .sj__challenges li + li {
-      padding: 24px 0 16px;
+      padding: 1.5rem 0 1rem;
       border-left: 0;
     }
     .sj__challenges li + li {
       border-top: 1px solid var(--line);
     }
     .plan__group {
-      padding: 26px 20px 12px;
+      padding: 1.625rem 1.25rem 0.75rem;
     }
     .plan__group li {
       grid-template-columns: minmax(0, 1fr);
-      gap: 4px;
+      gap: 0.25rem;
     }
   }
 </style>
